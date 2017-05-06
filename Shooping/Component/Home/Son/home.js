@@ -54,17 +54,18 @@ export default class Home extends Component {
                     <View style={styles.rightBar}>
                         <Image
                             source={{uri:'icon_mine_setting'}}
-                            style={{height:24,width:24,marginRight:3}}
+                            style={{height:24,width:24,marginRight:3,tintColor:'#fff'}}
                         />
 
                         <Image
                             source={{uri:'icon_message'}}
-                            style={{height:24,width:24}}
+                            style={{height:24,width:24,tintColor:'#fff'}}
                         />
                     </View>
                 </View>
                 <View style={comStyles.content}>
                     <Text style={comStyles.title}  onPress={() => navigate('Food')}>home</Text>
+
                 </View>
             </View>
 

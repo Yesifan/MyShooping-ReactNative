@@ -13,9 +13,9 @@ import {comStyles} from '../css'
 var Dimensions = require('Dimensions');
 var screenWidth = Dimensions.get('window').width;
 
-const HeaderBar = ({ left, middle, right }) => (
+const HeaderBar = ({ left, middle, right, height=50 }) => (
 
-        <View style={comStyles.tabBar}>
+        <View style={[comStyles.tabBar,{height:height}]}>
 
             {/*定位*/}
             <View style={styles.leftBar}>

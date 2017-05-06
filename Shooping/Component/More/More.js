@@ -11,7 +11,7 @@ import {
     ScrollView,
 } from 'react-native';
 
-import CommonCell from './Son/Com/CommonCell'
+import CommonCell from '../../js/Part/IconCell'
 import HeaderBar from '../../js/Part/HeaderBar'
 
 import {comStyles} from '../../js/css.js'
@@ -38,14 +38,25 @@ export default class More extends Component {
                 <View style={comStyles.content}>
 
                     <ScrollView>
+
                         <View style={{marginTop:10}}>
-                            <CommonCell title="收货地址" button={()=>{alert("xxx")}}/>
-                            <CommonCell/>
+                            <CommonCell title = "收货地址" button={()=>{alert("xxx")}}/>
+                            <CommonCell title = "消息提醒"/>
                         </View>
-                        <View style={{marginTop:10}}>
-                            <CommonCell title="收货地址"/>
+
+                        <View style={{marginTop:15}}>
+                            <CommonCell title = "清空缓存"/>
+                            <CommonCell title = "问卷调查"/>
+                            <CommonCell title = "支付帮助"/>
                             <CommonCell title = "省流量模式" isSwitch = {true}/>
                         </View>
+
+                        <View style={{marginTop:15}}>
+                            <CommonCell title = "关于我们" />
+                            <CommonCell title = "问题反馈" />
+                            <CommonCell title = "联系我们" />
+                        </View>
+
                     </ScrollView>
 
                 </View>

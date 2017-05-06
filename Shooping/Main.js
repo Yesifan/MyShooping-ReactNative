@@ -7,7 +7,7 @@ import { Image, StyleSheet,} from 'react-native';
 import { TabNavigator } from 'react-navigation';
 
 
-import Home from './Component/Home/Home'
+import Home from './Component/Home/Home';
 import Shop from "./Component/Shop/Shop";
 import More from "./Component/More/More";
 import Mine from "./Component/Mine/Mine";
@@ -47,7 +47,8 @@ const Main = TabNavigator({
             marginBottom: -1,
         },
         iconStyle: {
-            marginBottom: -8,
+            marginBottom: -5,
+
         },
     },
     tabBarPosition: 'bottom', // 显示在底端，android 默认是显示在页面顶端的
