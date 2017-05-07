@@ -14,16 +14,6 @@ import {comStyles} from '../../js/css.js'
 import HeaderBar from '../../js/Part/HeaderBar'
 
 export default class Shop extends Component {
-    static navigationOptions = {
-        tabBarLabel: '商家',
-        // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-        tabBarIcon: ({ tintColor }) => (
-            <Image
-                source={require('./icon_tabbar_merchant_normal.png')}
-                style={[comStyles.icon, {tintColor: tintColor}]}
-            />
-        ),
-    };
 
     render() {
         return (

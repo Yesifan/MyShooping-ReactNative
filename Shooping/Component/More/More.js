@@ -18,18 +18,11 @@ import {comStyles} from '../../js/css.js'
 
 
 export default class More extends Component {
-    static navigationOptions = {
-        tabBarLabel: '更多',
-        // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-        tabBarIcon: ({ tintColor }) => (
-            <Image
-                source={require('./icon_tabbar_misc.png')}
-                style={[comStyles.icon, {tintColor: tintColor}]}
-            />
-        ),
-    };
+
 
     render() {
+        const { navigation } = this.props;
+
         return (
             <View style={comStyles.box}>
                 <HeaderBar
@@ -52,7 +45,7 @@ export default class More extends Component {
                         </View>
 
                         <View style={{marginTop:15}}>
-                            <CommonCell title = "关于我们" />
+                            <CommonCell title = "关于我们" button={()=>navigation.navigate('AboutMe')}/>
                             <CommonCell title = "问题反馈" />
                             <CommonCell title = "联系我们" />
                         </View>

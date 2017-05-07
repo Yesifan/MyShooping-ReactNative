@@ -16,27 +16,19 @@ import {comStyles,screenWidth} from '../../js/css.js'
 import HeaderBar from '../../js/Part/HeaderBar'
 import IconCell from '../../js/Part/IconCell'
 
-
-
 export default class Mine extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            //用户头像
             avatar:'new_friend',
-            //用户名字
             userName:'点击我登陆',
-            //余额
-            money:10000.00,
-            //收藏
-            collect:21,
+            message:0,
         }
     }
 
 
-    //TabNavigation导航栏选项
     static navigationOptions = {
         tabBarLabel: '我的',
         // Note: By default the icon is only shown on iOS. Search the showIcon option below.
@@ -55,11 +47,11 @@ export default class Mine extends Component {
     };
 
 
+
     render() {
 
-        //用户头像和名字 包含登陆按钮及个人设置按钮
         const userBox = (
-            <TouchableOpacity onPress={()=>alert('这里写登陆，登陆后改成跳转设置按钮')}>
+            <TouchableOpacity onPress={()=>alert('这里写登陆')}>
                 <View style={styles.userBox}>
 
                     {/*头像*/}
@@ -74,7 +66,6 @@ export default class Mine extends Component {
             </TouchableOpacity>
         );
 
-        //向右箭头按钮 也应该写一个跳转按钮
         const icon = (
             <TouchableOpacity>
                 <Image
@@ -86,52 +77,90 @@ export default class Mine extends Component {
 
         return (
             <View style={comStyles.box}>
-                {/*头部标题*/}
                 <HeaderBar
                     height={120}
                     right={icon}
                     left={userBox}
                 />
-
-                {/*头部cell*/}
-                <View style={styles.sonBar}>
-
-                    <TouchableOpacity style={{flex:1}} onPress = {() => this.setState({money: this.state.money - 100})}>
-                        <HeaderItem title = "余额" number = {this.state.money}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{flex:1}} onPress = {() => alert("我的收藏有21个")}>
-                        <HeaderItem title = "收藏" number = {this.state.collect}  />
-                    </TouchableOpacity>
-                </View>
-
-                {/*列表list ScrollView*/}
                 <View style={{flex:1}}>
+
+                    {/*头部cell*/}
+                    <View style={styles.sonBar}>
+                        <View style={[styles.sonItem,{borderRightWidth:1, borderColor:'#C4E1FF',}]}>
+                            <Text style={[styles.text,{marginBottom:5,}]}>10000.00</Text>
+                            <Text style={styles.text}>余额</Text>
+                        </View>
+
+
+
+                        <View style={[styles.sonItem,{borderLeftWidth:1, borderColor:'#C4E1FF',}]}>
+                            <Text style={[styles.text,{marginBottom:5}]}>21</Text>
+                            <Text style={styles.text}>收藏</Text>
+                        </View>
+
+                    </View>
+
+                    {/*列表list*/}
                     <View style={{flex:1}}>
 
                         <ScrollView>
 
-                            {/*我的订单 和 下层列表*/}
                             <View style={{marginTop:1}}>
                                 <IconCell title = '我的订单' icon="xckc" button={()=>{alert("xxx")}} extends={<Text>查看全部订单</Text>}/>
 
                                 <View style={[styles.sonBar,{backgroundColor:'#fff',marginTop:3}]}>
 
-                                    <PayItem uri="order1" title="待付款" button={()=>alert("快付钱")}/>
+                                    <View style={styles.payItem}>
+                                        <TouchableOpacity onPress={()=>alert('快付钱啦')}>
+                                            <View style={styles.payItem}>
+                                                <Image
+                                                source={{uri:'order1'}}
+                                                style={{width:44,height:32}}/>
+                                                <Text>待付款</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
 
-                                    <PayItem uri="order2" title="待使用" button={()=>alert("快买东西啦")}/>
+                                    <View style={styles.payItem}>
+                                        <TouchableOpacity>
+                                            <View style={styles.payItem}>
+                                                <Image
+                                                    source={{uri:'order2'}}
+                                                    style={{width:44,height:32}}/>
+                                                <Text>待使用</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
 
-                                    <PayItem uri="order3" title="待评价" button={()=>alert("快评价")}/>
+                                    <View style={styles.payItem}>
+                                        <TouchableOpacity>
+                                            <View style={styles.payItem}>
+                                                <Image
+                                                    source={{uri:'order3'}}
+                                                    style={{width:44,height:32}}/>
+                                                <Text>待评价</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
 
-                                    <PayItem uri="order4" title="退款/售后" button={()=>alert("就你事情多")}/>
-
+                                    <View style={styles.payItem}>
+                                        <TouchableOpacity>
+                                            <View style={styles.payItem}>
+                                                <Image
+                                                    source={{uri:'order4'}}
+                                                    style={{width:44,height:32}}/>
+                                                <Text>退款/售后</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
 
-                            {/*下面都是普通ScrollVIew*/}
                             <View style={{marginTop:10}}>
                                 <IconCell title = "我的VIP" icon="avatar_vip" button={()=>{alert("xxx")}} extends={ <Text>剩余30天</Text> }/>
                                 <IconCell title = '我的收藏' icon="avatar_grassroot" button={()=>{alert("xxx")}}/>
                                 <IconCell title = '我的足迹' icon="zlam" button={()=>{alert("xxx")}}/>
+
                             </View>
 
                             <View style={{marginTop:10}}>
@@ -156,60 +185,16 @@ export default class Mine extends Component {
                             </View>
 
                         </ScrollView>
-
                     </View>
                 </View>
+
+
+
             </View>
 
         );
     }
 }
-
-//组成头部Cell的Item
-class HeaderItem extends Component {
-
-    constructor(props) {
-        super(props);
-
-    }
-
-    render(){
-        return(
-                <View style={[styles.sonItem,{borderRightWidth:1, borderColor:'#C4E1FF'}]}>
-                    <Text style={[styles.text,{marginBottom:5,}]}>{this.props.number}</Text>
-                    <Text style={styles.text}>{this.props.title}</Text>
-                </View>
-        );
-    }
-
-}
-
-//组成我的订单下半部分的Item
-class PayItem extends Component {
-
-    constructor(props) {
-        super(props);
-
-    }
-
-    render(){
-
-        return(
-            <View style={styles.payItem}>
-                <TouchableOpacity onPress={this.props.button}>
-                    <View style={styles.payItem}>
-                        <Image
-                            source={{uri:this.props.uri}}
-                            style={{width:44,height:32}}/>
-                        <Text>{this.props.title}</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        );
-    }
-
-}
-
 
 const styles = StyleSheet.create({
     text: {
@@ -258,5 +243,5 @@ const styles = StyleSheet.create({
         justifyContent:'center',
 
     },
-});
+})
 

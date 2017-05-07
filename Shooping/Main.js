@@ -3,34 +3,96 @@
  */
 
 import React from 'react';
-import { Image, StyleSheet,} from 'react-native';
-import { TabNavigator } from 'react-navigation';
-
+import { View,Image,Text } from 'react-native';
+import { TabNavigator,StackNavigator } from 'react-navigation';
 
 import Home from './Component/Home/Home';
 import Shop from "./Component/Shop/Shop";
 import More from "./Component/More/More";
 import Mine from "./Component/Mine/Mine";
 
+import food from './Component/Home/Son/food';
+import aboutMe from './Component/More/Son/AboutMe';
+
 import {comStyles} from './js/css.js'
+
+
+const StackHome = StackNavigator(
+    {
+        SHome: { screen: Home },
+    },
+
+    {
+        headerMode: 'none',
+    }
+)
+
+const StackMore = StackNavigator(
+    {
+        SMore: { screen: More },
+
+        AboutMe: { screen: aboutMe},
+    },
+
+    {
+        headerMode: 'none',
+    }
+)
 
 
 
 const Main = TabNavigator({
-    Home: { screen: Home,
+    Home: { screen: StackHome,
         navigationOptions: {
             tabBarLabel: '主页',
             // Note: By default the icon is only shown on iOS. Search the showIcon option below.
             tabBarIcon: ({ tintColor }) => (
                 <Image
-                    source={require('./Component/Home/icon_tabbar_homepage.png')}
+                    source={{uri:'icon_tabbar_homepage'}}
                     style={[comStyles.icon, {tintColor: tintColor}]}
                 />
             ),
         }},
-    Shop: { screen: Shop },
-    Mine: { screen: Mine },
-    More: { screen: More },
+    Shop: { screen: Shop,
+        navigationOptions: {
+            tabBarLabel: '商家',
+            // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+            tabBarIcon: ({ tintColor }) => (
+                <Image
+                    source={{uri:'icon_tabbar_merchant_normal'}}
+                    style={[comStyles.icon, {tintColor: tintColor}]}
+                />
+            ),
+        } },
+    Mine: { screen: Mine,
+        navigationOptions: {
+            tabBarLabel: '我的',
+            // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+            tabBarIcon: ({ tintColor }) => (
+                <View>
+                    {/*小红点*/}
+                    <View style={[comStyles.dot,{top:1, right:1}]}>
+                        <Text style={{color:'#fff',fontSize:7}}>14</Text>
+                    </View>
+
+                    <Image
+                        source={{uri:'.icon_tabbar_mine'}}
+                        style={[comStyles.icon, {tintColor: tintColor}]}
+                    />
+                </View>
+            ),
+        } },
+    More: { screen: StackMore,
+        navigationOptions: {
+            tabBarLabel: '更多',
+            // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+            tabBarIcon: ({ tintColor }) => (
+                <Image
+                    source={{uri:'icon_tabbar_misc'}}
+                    style={[comStyles.icon, {tintColor: tintColor}]}
+                />
+            ),
+        } },
 },
 
 {
@@ -57,5 +119,18 @@ const Main = TabNavigator({
 
 );
 
+const StackRoot = StackNavigator(
+    {
+        Main: { screen: Main },
 
-export default Main;
+        Food: { screen: food },
+    },
+
+    {
+        headerMode: 'none',
+    }
+)
+
+
+
+export default StackRoot;
