@@ -145,7 +145,6 @@ const Main = TabNavigator({
 const StackRoot = StackNavigator(
     {
         Main: { screen: Main },
-
         Food: { screen: food },
     },
 

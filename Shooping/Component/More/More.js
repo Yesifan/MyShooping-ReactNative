@@ -34,11 +34,11 @@ export default class More extends Component {
 
                         <View style={{marginTop:10}}>
                             <CommonCell title = "收货地址" button={()=>{alert("xxx")}}/>
-                            <CommonCell title = "消息提醒"/>
+                            <CommonCell title = "消息提醒" button={()=>navigation.navigate('Food')}/>
                         </View>
 
                         <View style={{marginTop:15}}>
-                            <CommonCell title = "清空缓存"/>
+                            <CommonCell title = "清空缓存" extends={ <Text>1.99M</Text> }/>
                             <CommonCell title = "问卷调查"/>
                             <CommonCell title = "支付帮助"/>
                             <CommonCell title = "省流量模式" isSwitch = {true}/>

@@ -8,6 +8,7 @@ import {
     View,
     Image,
     TouchableOpacity,
+    StyleSheet
 } from 'react-native';
 
 import {comStyles} from '../../../js/css.js'
@@ -28,7 +29,7 @@ export default class food extends Component {
 
         const backAction = NavigationActions.back()
 
-        const text = (<Text style={comStyles.text}>Hello</Text>);
+        const text = (<Text style={comStyles.text}>Food</Text>);
 
         const icon = (
             <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -42,15 +43,16 @@ export default class food extends Component {
         return (
             <View style={comStyles.box}>
                 <HeaderBar
-                    left = {icon}
-                    middle = {text}
+                left = {icon}
+                middle = {text}
                 />
                 <View style={comStyles.content}>
-                    <Text style={comStyles.title}>home</Text>
                 </View>
             </View>
-
         );
+
+
+
     }
 }
 

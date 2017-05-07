@@ -9,9 +9,15 @@ import {
     Image,
     StyleSheet,
     TextInput,
+    TouchableOpacity
 } from 'react-native';
 
+
+
 import {comStyles,screenWidth} from '../../js/css.js'
+import HeaderBar from '../../js/Part/HeaderBar'
+import Swiper from '../../js/Part/Swiper'
+
 
 export default class Home extends Component {
 
@@ -25,47 +31,62 @@ export default class Home extends Component {
         super(props);
     }
 
+    componentWillMount()
+    {
+
+    }
+
     render() {
 
         const { navigate } = this.props.navigation;
 
         console.log(this.props.navigation.state);
 
+        //这里要写下拉栏
+        const left = (<Text style={comStyles.text}>温州</Text>);
+
+        //这里输入框
+        const middle = (
+            <TextInput style={styles.textInput}
+                       underlineColorAndroid='transparent'
+                       placeholder = '商家,店铺...'
+            />);
+
+        //这里应该两按钮
+        const right = (
+            <View style={styles.rightBar}>
+                <TouchableOpacity>
+                    <Image
+                        source={{uri:'icon_mine_setting'}}
+                        style={{height:24,width:24,marginRight:3,tintColor:'#fff'}}
+                    />
+                </TouchableOpacity>
+
+                <TouchableOpacity>
+                    <Image
+                        source={{uri:'icon_message'}}
+                        style={{height:24,width:24,tintColor:'#fff'}}
+                    />
+                </TouchableOpacity>
+            </View>);
+
 
         return (
             <View style={comStyles.box}>
-                <View style={comStyles.tabBar}>
-                    {/*定位*/}
-                    <View style={styles.leftBar}>
-                        <Text style={comStyles.text}>温州</Text>
-                    </View>
 
-                    {/*搜索框*/}
-                    <View style={styles.middleBar}>
+                <HeaderBar
+                   left={left}
+                   middle={middle}
+                   right={right}
+                />
 
-                        <TextInput style={styles.textInput}
-                                   underlineColorAndroid='transparent'
-                                   placeholder = '商家,店铺...'
-                        />
-
-                    </View>
-
-                    {/*功能图标*/}
-                    <View style={styles.rightBar}>
-                        <Image
-                            source={{uri:'icon_mine_setting'}}
-                            style={{height:24,width:24,marginRight:3,tintColor:'#fff'}}
-                        />
-
-                        <Image
-                            source={{uri:'icon_message'}}
-                            style={{height:24,width:24,tintColor:'#fff'}}
-                        />
-                    </View>
-                </View>
                 <View style={comStyles.content}>
-                    <Text style={comStyles.title}  onPress={() => navigate('Food')}>home</Text>
 
+                    <Text style={comStyles.title}  onPress={() => navigate('Home')}>home</Text>
+
+                    <View style={{borderWidth:1}}>
+                        <Swiper/>
+                    </View>
                 </View>
             </View>
 
@@ -75,20 +96,9 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
 
-
-    leftBar: {
-        flexDirection: 'row',
-        marginLeft:10
-    },
-
-    middleBar: {
-        flexDirection: 'row',
-    },
-
     rightBar: {
-        marginRight:5,
         flexDirection: 'row',
-
+        marginRight:5,
     },
 
     textInput: {
@@ -106,8 +116,28 @@ const styles = StyleSheet.create({
 
         paddingLeft:10,
         borderRadius:30,
+    },
+
+    wrapper: {
 
     },
+
+    slide: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: 'transparent'
+    },
+
+    text: {
+        color: '#000',
+        fontSize: 30,
+        fontWeight: 'bold',
+    },
+
+    image: {
+        width:screenWidth,
+        flex: 1
+    }
 
 })
 
