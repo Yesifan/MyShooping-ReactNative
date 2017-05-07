@@ -42,11 +42,16 @@ export default class AboutMe extends Component {
                     middle = {title}
                 />
                 <View style={comStyles.content}>
+
                     <Text style={styles.title} >制作人员</Text>
+
                     <Text style={styles.text} >叶思凡</Text>
+
                     <Text style={styles.text} >E-mail:504936436@qq.com</Text>
+
                     <Text style={styles.text} >温州大学瓯江学院14计算机与科学</Text>
-                    {/*<Image source={{uri:'wechat'}} style={{width:150,height:150,marginBottom:30}}/>*/}
+
+                    <Image source={{uri:'weixin'}} style={{width:150,height:150,marginTop:60}}/>
 
                 </View>
             </View>

@@ -19,17 +19,37 @@ import {comStyles} from './js/css.js'
 
 const StackHome = StackNavigator(
     {
-        SHome: { screen: Home },
+        Home: { screen: Home },
     },
 
     {
         headerMode: 'none',
     }
-)
+);
+
+const StackShop = StackNavigator(
+    {
+        Shop: { screen: Shop },
+    },
+
+    {
+        headerMode: 'none',
+    }
+);
+
+const StackMine= StackNavigator(
+    {
+        Mine: { screen: Mine },
+    },
+
+    {
+        headerMode: 'none',
+    }
+);
 
 const StackMore = StackNavigator(
     {
-        SMore: { screen: More },
+        More: { screen: More },
 
         AboutMe: { screen: aboutMe},
     },
@@ -37,10 +57,10 @@ const StackMore = StackNavigator(
     {
         headerMode: 'none',
     }
-)
+);
 
 
-
+//四个主页面的Tab导航
 const Main = TabNavigator({
     Home: { screen: StackHome,
         navigationOptions: {
@@ -53,7 +73,8 @@ const Main = TabNavigator({
                 />
             ),
         }},
-    Shop: { screen: Shop,
+
+    Shop: { screen: StackShop,
         navigationOptions: {
             tabBarLabel: '商家',
             // Note: By default the icon is only shown on iOS. Search the showIcon option below.
@@ -64,7 +85,8 @@ const Main = TabNavigator({
                 />
             ),
         } },
-    Mine: { screen: Mine,
+
+    Mine: { screen: StackMine,
         navigationOptions: {
             tabBarLabel: '我的',
             // Note: By default the icon is only shown on iOS. Search the showIcon option below.
@@ -76,12 +98,13 @@ const Main = TabNavigator({
                     </View>
 
                     <Image
-                        source={{uri:'.icon_tabbar_mine'}}
+                        source={{uri:'icon_tabbar_mine'}}
                         style={[comStyles.icon, {tintColor: tintColor}]}
                     />
                 </View>
             ),
         } },
+
     More: { screen: StackMore,
         navigationOptions: {
             tabBarLabel: '更多',
@@ -129,7 +152,7 @@ const StackRoot = StackNavigator(
     {
         headerMode: 'none',
     }
-)
+);
 
 
 
