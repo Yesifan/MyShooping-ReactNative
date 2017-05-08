@@ -30,6 +30,7 @@ export default class IconCell extends Component {
             OnOff: false,
         }
     }
+
     static defaultProps = {
         //标题
         title: 'MyScene',

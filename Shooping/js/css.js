@@ -6,11 +6,11 @@ import {
     StyleSheet,
 } from 'react-native';
 
-var Dimensions = require('Dimensions');
+const Dimensions = require('Dimensions');
 
-export var screenWidth = Dimensions.get('window').width;
+export const screenWidth = Dimensions.get('window').width;
 
-export var screenHeight = Dimensions.get('window').height;
+export const screenHeight = Dimensions.get('window').height;
 
 
 export const comStyles = StyleSheet.create({
@@ -37,7 +37,7 @@ export const comStyles = StyleSheet.create({
         width: screenWidth,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#F9FCFF',
     },
 
     content: {

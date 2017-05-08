@@ -6,13 +6,11 @@
 import React, {Component} from 'react';
 
 import {
-
-    TouchableWithoutFeedback,
     ScrollView,
-    Animated,
     View,
     StyleSheet,
 } from 'react-native';
+
 
 const Dimensions = require('Dimensions');
 
@@ -25,92 +23,124 @@ export default class Swiper extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            images : [
-                {
-                    color:'#dfe24a',
-                    index:1,
-                },
-                {
-                    color:'#68eaf9',
-                    index:2,
-                },
-                {
-                    color:'#ef9af9',
-                    index:3,
-                }
-            ],// 使用颜色代替图片
-
-            isNeedRun: true,
-
-            select:1
-
+            select:1,
+            autoPlay:false
         };
 
         this._index = 0;// 当前正在显示的图片
         this.x = 0;
-        this._max = this.state.images.length;// 图片总数
+        this.length = 0;
     }
 
+    // static defaultProps = {
+    //     view:(()=>{
+    //         // 组件数组
+    //         let itemArr = [];
+    //         //载入MenuJson
+    //         let dataArr = ['red','blue'];
+    //         console.log(dataArr.length);
+    //         // 遍历创建组件
+    //         for(var i=0; i<dataArr.length; i++){
+    //             itemArr.push( <View key={i} style={{backgroundColor:dataArr[i],width:screenWidth,height:120}}/> );
+    //         }
+    //         return itemArr;})
+    //
+    // };
 
+
+    renderScrollItem(){
+
+        // 组件数组
+        let itemArr = [];
+        //载入MenuJson
+        let dataArr = ['red','blue'];
+
+        // 遍历创建组件
+        for(var i=0; i<dataArr.length; i++){
+            itemArr.push( <View key={i} style={{backgroundColor:dataArr[i],width:screenWidth,height:120}}/> );
+        }
+        return itemArr;
+    }
+
+    renderCircles(imageLength){
+
+        //组件数组
+        var circlesArr = [];
+
+        for(var i = 0; i<imageLength; i++)
+        {
+            circlesArr.push(
+                <View style={ (i+1 == this.state.select) ? styles.circleSelected : styles.circle}/>
+            )
+
+        }
+
+        return circlesArr;
+
+    }
 
     render(){
 
-        // 图片列表 哪里来的Key啊 不就一个map吗
-        let images = this.state.images.map((images) => {
-            return (
-                <TouchableWithoutFeedback>
-                    <View style={{width:screenWidth,height:200,backgroundColor:images.color}}/>
-                </TouchableWithoutFeedback>);
-        });
-
-        // 小圆点指示器
-        let circles = this.state.images.map((images) => {
-            return (<View style={ (images.index == this.state.select) ? styles.circleSelected : styles.circle}/>);
-        });
+        let itemArr = this.props.view?this.props.view:this.renderScrollItem();
 
         // 小圆点位置居中显示
-        let imageLength = this.state.images.length;
-        let circleLength = 6 * imageLength + 5 * 2 * imageLength;
+        this.length = itemArr.length;
+
+        let circleLength = 6 * this.length + 5 * 2 * this.length;
         let center = (screenWidth - circleLength) / 2;
 
         return(
-            <View style={{height:200,width:screenWidth}}>
-                <ScrollView horizontal={true}
-                            //不显示滚动条
-                            showsHorizontalScrollIndicator={false}
-                            showsVerticalScrollIndicator={false}
+            <View style={{height:this.props.height,width:screenWidth,backgroundColor:'#fff'}}>
+                <ScrollView
+                    //横向滚动
+                    horizontal={true}
+                    //不显示滚动条
+                    showsHorizontalScrollIndicator = {false}
+                    showsVerticalScrollIndicator = {false}
 
+                    onTouchStart = {this.state.autoPlay? ()=>this._onTouchStart() : null}
+                    onTouchEnd = {this.state.autoPlay? ()=>this._onTouchEnd() : null}
 
-                            //onTouchStart={()=>this._onTouchStart()}
+                    onScrollEndDrag={(e)=>this._onScrollEndDrag(e)}
 
-                            onScrollEndDrag={(e)=>this._onTouchEnd(e)}
+                    ref={(scrollView) => { this._scrollView = scrollView;}} >
 
-                            // scrollEventThrottle={1000}
-                            // onScroll={()=>this._onTouchEnd()}
-                            // onScroll={(e)=>{this._onScroll(e)}}
-
-                            ref={(scrollView) => { this._scrollView = scrollView;}}>
-                    <Animated.View style={{flexDirection:'row'}}>{images}</Animated.View>
+                    <View style={{flexDirection:'row'}}>
+                        {itemArr}
+                    </View>
                 </ScrollView>
 
-                <View style={{flexDirection:'row',position:'absolute',top:180,left:center}}>
-                    {circles}
+                <View style={{flexDirection:'row',position:'absolute',bottom:2,left:center}}>
+                    {this.renderCircles(this.length)}
                 </View>
-
-
             </View>
         );
-
     }
 
-    _onTouchEnd(e)
+    // 当手指按到scrollView时停止定时任务
+    _onTouchStart(){
+        // 当手指按到scrollView时停止定时任务
+        clearInterval(this._timer);
+
+        console.log("_onTouchStart");
+    }
+
+    //onTouchEnd仅在点击屏幕却未滑动时触发
+    _onTouchEnd()
+    {
+        this._runFocusImage();
+
+        console.log("_onTouchEnd");
+    }
+
+    _onScrollEndDrag(e)
     {
         this.x = e.nativeEvent.contentOffset.x;
 
         if((this.x - screenWidth * this._index) > 100)
         {
             console.log("我大于100了吗"+(this.x - screenWidth * this._index));
-            this._index = this._index + 1;
+            this._index++;
             this.setState({select:this._index+1});
         }
         else
@@ -118,7 +148,7 @@ export default class Swiper extends Component{
             if((this.x - screenWidth * this._index) < -100)
             {
                 console.log("我小于-100了吗"+(this.x - screenWidth * this._index));
-                this._index = this._index - 1;
+                this._index--;
                 this.setState({select:this._index+1});
             }
         }
@@ -129,7 +159,46 @@ export default class Swiper extends Component{
         //移动
         this._scrollView.scrollTo({x:this._index * screenWidth, y: 0,animated: true});
 
-        //console.log(e.nativeEvent.contentOffset.x);
+        //重新打开定时器
+        this._runFocusImage();
+
+        console.log("_onScrollEndDrag");
+    }
+
+
+    //定时器
+    _runFocusImage(){
+        // 只有一个或者 autoPlay==false 则不启动定时任务
+        if(this.length <= 1 || !this.state.autoPlay){
+            return;
+        }
+        this._timer = setInterval(function () {
+            this._index++;
+            if(this._index >= this.length){
+                this._index = 0;
+            }
+
+            // 重置小圆点指示器
+            this.setState({select:this._index+1});
+
+            this._scrollView.scrollTo({x:this._index * screenWidth, y: 0,animated: true});
+
+        }.bind(this), 2000);
+    }
+
+    // 组件装载完成
+    componentDidMount(){
+        console.log(this.props.view)
+        this._runFocusImage();
+    }
+
+    // 组件即将卸载
+    componentWillUnmount(){
+        //if autoPlay==true
+        if(this.state.autoPlay)
+        {
+            clearInterval(this._timer);
+        }
     }
 
 
@@ -145,19 +214,23 @@ const styles = StyleSheet.create({
         left:0,
         top:120,
     },
+
+    //平时的样式
     circle: {
         width:6,
         height:6,
         borderRadius:6,
-        backgroundColor:'#f4797e',
+        backgroundColor:'#bbbbbb',
         marginHorizontal:5,
     },
+    //选中的样式
     circleSelected: {
         width:6,
         height:6,
         borderRadius:6,
-        backgroundColor:'#ffffff',
+        backgroundColor:'red',
         marginHorizontal:5,
     }
 });
+
 

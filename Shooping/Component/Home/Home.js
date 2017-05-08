@@ -17,6 +17,9 @@ import {
 import {comStyles,screenWidth} from '../../js/css.js'
 import HeaderBar from '../../js/Part/HeaderBar'
 import Swiper from '../../js/Part/Swiper'
+import TopMenu from '../../Data/TopMenu.json'
+import TopView from './Son/com/TopListView'
+
 
 
 export default class Home extends Component {
@@ -33,6 +36,22 @@ export default class Home extends Component {
 
     componentWillMount()
     {
+
+    }
+
+    renderScrollItem(){
+
+        // 组件数组
+        let itemArr = [];
+        //载入MenuJson
+        let dataArr = TopMenu.data;
+        console.log(dataArr.length);
+        // 遍历创建组件
+        for(var i=0; i<dataArr.length; i++){
+            itemArr.push( <TopView dataArr={dataArr[i]}/> );
+        }
+
+        return itemArr;
 
     }
 
@@ -80,13 +99,13 @@ export default class Home extends Component {
                    right={right}
                 />
 
-                <View style={comStyles.content}>
+                <View style={styles.content}>
 
-                    <Text style={comStyles.title}  onPress={() => navigate('Home')}>home</Text>
+                    <Swiper
+                        view={this.renderScrollItem()}
+                        height={155}/>
 
-                    <View style={{borderWidth:1}}>
-                        <Swiper/>
-                    </View>
+                    <Text style={comStyles.title}  onPress={() => navigate('Food')}>home</Text>
                 </View>
             </View>
 
@@ -122,21 +141,15 @@ const styles = StyleSheet.create({
 
     },
 
-    slide: {
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: 'transparent'
-    },
-
     text: {
         color: '#000',
         fontSize: 30,
         fontWeight: 'bold',
     },
 
-    image: {
-        width:screenWidth,
-        flex: 1
+    content: {
+        flex: 1,
+        alignItems: 'center',
     }
 
 })

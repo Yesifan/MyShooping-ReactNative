@@ -66,11 +66,16 @@ const Main = TabNavigator({
         navigationOptions: {
             tabBarLabel: '主页',
             // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-            tabBarIcon: ({ tintColor }) => (
-                <Image
-                    source={{uri:'icon_tabbar_homepage'}}
-                    style={[comStyles.icon, {tintColor: tintColor}]}
-                />
+            tabBarIcon: ({focused}) => (
+                    focused?
+                        <Image
+                            source={{uri:'icon_tabbar_homepage_selected'}}
+                            style={[comStyles.icon]}
+                        />:
+                        <Image
+                            source={{uri:'icon_tabbar_homepage'}}
+                            style={[comStyles.icon]}
+                        />
             ),
         }},
 
@@ -78,30 +83,48 @@ const Main = TabNavigator({
         navigationOptions: {
             tabBarLabel: '商家',
             // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-            tabBarIcon: ({ tintColor }) => (
-                <Image
-                    source={{uri:'icon_tabbar_merchant_normal'}}
-                    style={[comStyles.icon, {tintColor: tintColor}]}
-                />
+            tabBarIcon: ({focused}) => (
+                focused?
+                    <Image
+                        source={{uri:'icon_tabbar_merchant_selected'}}
+                        style={[comStyles.icon]}
+                    />:
+                    <Image
+                        source={{uri:'icon_tabbar_merchant_normal'}}
+                        style={[comStyles.icon]}
+                    />
             ),
         } },
 
     Mine: { screen: StackMine,
         navigationOptions: {
             tabBarLabel: '我的',
-            // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-            tabBarIcon: ({ tintColor }) => (
-                <View>
-                    {/*小红点*/}
-                    <View style={[comStyles.dot,{top:1, right:1}]}>
-                        <Text style={{color:'#fff',fontSize:7}}>14</Text>
-                    </View>
+            // 通过focused来判断是否选中
+            tabBarIcon: ({focused}) => (
+                focused?
+                    <View>
+                        {/*小红点*/}
+                        <View style={[comStyles.dot,{top:1, right:1}]}>
+                            <Text style={{color:'#fff',fontSize:7}}>14</Text>
+                        </View>
 
-                    <Image
-                        source={{uri:'icon_tabbar_mine'}}
-                        style={[comStyles.icon, {tintColor: tintColor}]}
-                    />
-                </View>
+                        <Image
+                            source={{uri:'icon_tabbar_mine_selected'}}
+                            style={[comStyles.icon]}
+                        />
+                    </View>
+                    :
+                    <View>
+                        {/*小红点*/}
+                        <View style={[comStyles.dot,{top:1, right:1}]}>
+                            <Text style={{color:'#fff',fontSize:7}}>14</Text>
+                        </View>
+
+                        <Image
+                            source={{uri:'icon_tabbar_mine'}}
+                            style={[comStyles.icon]}
+                        />
+                    </View>
             ),
         } },
 
@@ -109,19 +132,24 @@ const Main = TabNavigator({
         navigationOptions: {
             tabBarLabel: '更多',
             // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-            tabBarIcon: ({ tintColor }) => (
-                <Image
-                    source={{uri:'icon_tabbar_misc'}}
-                    style={[comStyles.icon, {tintColor: tintColor}]}
-                />
+            tabBarIcon: ({focused}) => (
+                focused?
+                    <Image
+                        source={{uri:'icon_tabbar_misc_selected'}}
+                        style={[comStyles.icon]}
+                    />:
+                    <Image
+                        source={{uri:'icon_tabbar_misc'}}
+                        style={[comStyles.icon]}
+                    />
             ),
         } },
 },
 
 {
     tabBarOptions: {
-        activeTintColor: '#000', // 文字和图片选中颜色
-        inactiveTintColor: '#999', // 文字和图片默认颜色
+        activeTintColor: '#ED5100', // 文字和图片选中颜色
+        inactiveTintColor: '#BBBBBB', // 文字和图片默认颜色
         showIcon: true, // android 默认不显示 icon, 需要设置为 true 才会显示
         indicatorStyle: {height: 0}, // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了， 不知道还有没有其它方法隐藏？？？
         style: {
@@ -138,6 +166,7 @@ const Main = TabNavigator({
     },
     tabBarPosition: 'bottom', // 显示在底端，android 默认是显示在页面顶端的
     animationEnabled: false, // 切换页面时不显示动画
+    swipeEnabled:false, //无法在两个便签间滑动
 }
 
 );
