@@ -4,10 +4,8 @@
 
 import React, { Component } from 'react';
 import {
-    StyleSheet,
     Text,
     View,
-    Image,
     ScrollView,
 } from 'react-native';
 
@@ -24,6 +22,7 @@ export default class More extends Component {
         const { navigation } = this.props;
 
         return (
+
             <View style={comStyles.box}>
                 <HeaderBar
                     middle={<Text style={comStyles.text}>更多</Text>}

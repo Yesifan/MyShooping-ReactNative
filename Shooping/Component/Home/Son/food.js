@@ -20,13 +20,13 @@ export default class food extends Component {
 
     static navigationOptions = {
         title: 'Food',    //设置navigator的title
-    }
+    };
 
 
     componentDidMount(){
 
-        this.props.navigation.setParams({event:1});
-        console.log('food',this.props.navigation.setParams);
+        this.props.navigation.setParams({food:"food"});
+
         console.log('food',this.props.navigation.state.params);
     };
 

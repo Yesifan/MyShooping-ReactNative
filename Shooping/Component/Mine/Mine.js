@@ -10,6 +10,7 @@ import {
     Image,
     TouchableOpacity,
     ScrollView,
+
 } from 'react-native';
 
 import { NavigationActions } from 'react-navigation'
@@ -18,10 +19,39 @@ import {comStyles,screenWidth} from '../../js/css.js'
 import HeaderBar from '../../js/Part/HeaderBar'
 import IconCell from '../../js/Part/IconCell'
 
+
+
 export default class Mine extends Component {
 
-
-
+    // static navigationOptions = {
+    //
+    //     tabBarLabel: '我的',
+    //     //通过focused来判断是否选中
+    //     tabBarIcon: ({ focused,props }) =>
+    //         focused?
+    //             <View>
+    //                 {/*小红点*/}
+    //                 <View style={[comStyles.dot,{top:1, right:1}]}>
+    //                     <Text style={{color:'#fff',fontSize:7}}>14</Text>
+    //                 </View>
+    //
+    //                 <Image
+    //                     source={{uri:'icon_tabbar_mine_selected'}}
+    //                     style={[comStyles.icon]}
+    //                 />
+    //             </View> :
+    //             <View>
+    //                 {/*小红点*/}
+    //                 <View style={[comStyles.dot,{top:1, right:1}]}>
+    //                     <Text style={{color:'#fff',fontSize:7}}>{props}</Text>
+    //                 </View>
+    //
+    //                 <Image
+    //                     source={{uri:'icon_tabbar_mine'}}
+    //                     style={[comStyles.icon]}
+    //                 />
+    //             </View>
+    // };
     constructor(props) {
         super(props);
 
@@ -33,16 +63,18 @@ export default class Mine extends Component {
 
             money:10000,
             collect:21,
-        }
+        };
     }
 
+    componentWillMount()
+    {
+        this.props.navigation.setParams({event:this.state.event});
+        console.log("装载完成", this.props.navigation.state.params);
+    }
     // 组件装载完成
     componentDidMount(){
 
-        this.props.navigation.setParams({event:this.state.event});
-
-
-        console.log("Mine", this.props.navigation.routes);
+        console.log("Mine", this.props.navigation.state.params);
     }
 
     render() {
@@ -236,4 +268,5 @@ const styles = StyleSheet.create({
 
     },
 });
+
 

@@ -16,6 +16,7 @@ import aboutMe from './Component/More/Son/AboutMe';
 
 import {comStyles} from './js/css.js'
 
+console.ignoredYellowBox = ['Warning: Each child in an array or iterator should have a unique "key" prop.','Remote debugger is in a background tab which may cause apps to perform slowly.'];
 
 const StackHome = StackNavigator(
     {
@@ -97,35 +98,43 @@ const Main = TabNavigator({
         } },
 
     Mine: { screen: StackMine,
-        navigationOptions: {
+        navigationOptions: ({navigation})=>{
+
+        const { state } = navigation;
+        //console.log('Main-Mine',state);
+
+        return {
             tabBarLabel: '我的',
             //通过focused来判断是否选中
-            tabBarIcon: ({ focused }) => (
-                focused?
+            tabBarIcon: ({focused}) => (
+
+                focused ?
                     <View>
                         {/*小红点*/}
-                        <View style={[comStyles.dot,{top:1, right:1}]}>
-                            <Text style={{color:'#fff',fontSize:7}}>14</Text>
+                        <View style={[comStyles.dot, {top: 1, right: 1}]}>
+                            <Text style={{color: '#fff', fontSize: 7}}>14</Text>
                         </View>
 
                         <Image
-                            source={{uri:'icon_tabbar_mine_selected'}}
+                            source={{uri: 'icon_tabbar_mine_selected'}}
                             style={[comStyles.icon]}
                         />
                     </View> :
                     <View>
                         {/*小红点*/}
-                        <View style={[comStyles.dot,{top:1, right:1}]}>
-                            <Text style={{color:'#fff',fontSize:7}}>14</Text>
+                        <View style={[comStyles.dot, {top: 1, right: 1}]}>
+                            <Text style={{color: '#fff', fontSize: 7}}>{event}</Text>
                         </View>
 
                         <Image
-                            source={{uri:'icon_tabbar_mine'}}
+                            source={{uri: 'icon_tabbar_mine'}}
                             style={[comStyles.icon]}
                         />
                     </View>
             ),
-        } },
+        }
+        }
+        },
 
     More: { screen: StackMore,
         navigationOptions: {

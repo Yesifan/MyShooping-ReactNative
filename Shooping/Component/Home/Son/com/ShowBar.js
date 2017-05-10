@@ -28,9 +28,6 @@ export default class ShowBar extends Component {
     {
         super(props);
 
-        this.state = {
-            OnOff: false,
-        }
     }
 
     static defaultProps = {
@@ -118,7 +115,7 @@ export default class ShowBar extends Component {
     }
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
 
     title: {
         fontSize:15,

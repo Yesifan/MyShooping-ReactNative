@@ -97,7 +97,7 @@ export default class Home extends Component {
         //ShowBar的点击事件
         const ShowButton = {
             LButton:null,
-            RTButton:()=>navigate('Food'),
+            RTButton:()=>navigate('Food',{event:'true'}),
             RBButton:null
         };
 

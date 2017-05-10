@@ -10,8 +10,6 @@ import {
 } from 'react-native';
 
 import {comStyles} from '../css'
-var Dimensions = require('Dimensions');
-var screenWidth = Dimensions.get('window').width;
 
 const HeaderBar = ({ left, middle, right, height=50 }) => (
 
@@ -59,4 +57,4 @@ const styles = StyleSheet.create({
 
 
 
-})
+});
