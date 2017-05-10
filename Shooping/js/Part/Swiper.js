@@ -6,7 +6,8 @@
 'use strict';
 
 import React, {Component} from 'react';
-
+import {connect} from 'react-redux';
+import { select,swiper } from '../../Redux/action/action'
 import {
     ScrollView,
     View,
@@ -24,9 +25,9 @@ export default class Swiper extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {
-            select:1,
-        };
+        // this.state = {
+        //     select:1,
+        // };
 
         this._index = 0;// 当前正在显示的图片
         this.x = 0;
@@ -44,9 +45,10 @@ export default class Swiper extends Component{
 
         center:true,
 
-        color:'#FFF'
-    };
+        color:'#FFF',
 
+        Code:'SELECT',
+    };
 
     //遍历方法
     //     view:(()=>{
@@ -92,7 +94,7 @@ export default class Swiper extends Component{
         for(var i = 0; i<imageLength; i++)
         {
             circlesArr.push(
-                <View style={ (i+1 == this.state.select) ? styles.circleSelected : styles.circle}/>
+                <View style={ (i+1 == this.props.select) ? styles.circleSelected : styles.circle}/>
             )
 
         }
@@ -138,6 +140,11 @@ export default class Swiper extends Component{
         );
     }
 
+    _select(index)
+    {
+        this.props.dispatch(select(index))
+    }
+
     // 当手指按到scrollView时停止定时任务
     _onTouchStart(){
         // 当手指按到scrollView时停止定时任务
@@ -162,7 +169,7 @@ export default class Swiper extends Component{
         {
             console.log("我大于100了吗"+(this.x - screenWidth * this._index));
             this._index++;
-            this.setState({select:this._index+1});
+            this.props.dispatch(swiper({type:this.props.Code,index:this._index+1}))
         }
         else
         {
@@ -170,7 +177,7 @@ export default class Swiper extends Component{
             {
                 console.log("我小于-100了吗"+(this.x - screenWidth * this._index));
                 this._index--;
-                this.setState({select:this._index+1});
+                this.props.dispatch(swiper({type:this.props.Code,index:this._index+1}))
             }
         }
 
@@ -200,7 +207,7 @@ export default class Swiper extends Component{
             }
 
             // 重置小圆点指示器
-            this.setState({select:this._index+1});
+            this.props.dispatch(swiper({type:this.props.Code,index:this._index+1}))
 
             this._scrollView.scrollTo({x:this._index * screenWidth, y: 0,animated: true});
 
@@ -221,9 +228,19 @@ export default class Swiper extends Component{
             clearInterval(this._timer);
         }
     }
-
-
 }
+
+// const mapStateToProps = (state)=>{
+//     //console.log('navigation',state);
+//     return {
+//         //state.XXX 必须与reducer同名
+//         select:state.reducer.select,
+//     }
+// };
+//
+// const _Swiper = connect(mapStateToProps)(Swiper);
+
+
 
 const styles = StyleSheet.create({
     container: {

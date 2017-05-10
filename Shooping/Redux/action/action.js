@@ -15,6 +15,13 @@ export const select = (data)=>(
     }
 );
 
+export function swiper(data) {
+    return {
+        type: data.type,
+        select:data.index,
+    }
+}
+
 export const dataSource = (data)=>(
     {
         type:'DATA_SOURCE',
@@ -51,3 +58,22 @@ export const collect = (data)=>(
         collect:data,
     }
 );
+
+export function Go(data) {
+    return {
+        type: 'Navigation/NAVIGATE',
+        routeName:data.routeName,
+        params: data.params,
+        action: data.action,
+    }
+}
+
+
+
+// export function Set(data) {
+//     return {
+//         type: 'Navigation/NAVIGATE',
+//         routeName:data.routeName,
+//         params: data.params,
+//     }
+// }

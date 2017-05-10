@@ -2,9 +2,10 @@
  * Created by y5049 on 2017/4/30.
  */
 
-import React from 'react';
+import React, { PropTypes }from 'react';
 import { View,Image,Text } from 'react-native';
-import { TabNavigator,StackNavigator,NavigationActions } from 'react-navigation';
+import { TabNavigator,StackNavigator,addNavigationHelpers } from 'react-navigation';
+import { connect } from 'react-redux';
 
 import Home from './Component/Home/Home';
 import Shop from "./Component/Shop/Shop";
@@ -63,7 +64,7 @@ const StackMore = StackNavigator(
 
 //四个主页面的Tab导航
 const Main = TabNavigator({
-    Home: { screen: StackHome,
+    SHome: { screen: StackHome,
         navigationOptions: {
             tabBarLabel: '主页',
             // Note: By default the icon is only shown on iOS. Search the showIcon option below.
@@ -80,7 +81,7 @@ const Main = TabNavigator({
             ),
         }},
 
-    Shop: { screen: StackShop,
+    SShop: { screen: StackShop,
         navigationOptions: {
             tabBarLabel: '商家',
             // Note: By default the icon is only shown on iOS. Search the showIcon option below.
@@ -97,17 +98,17 @@ const Main = TabNavigator({
             ),
         } },
 
-    Mine: { screen: StackMine,
-        navigationOptions: ({navigation})=>{
+    SMine: { screen: StackMine,
+        navigationOptions: ()=>{
 
-        const { state } = navigation;
-        //console.log('Main-Mine',state);
+        //const { state } = navigation;
+
+        //console.log('Main-Mine',this);
 
         return {
             tabBarLabel: '我的',
             //通过focused来判断是否选中
             tabBarIcon: ({focused}) => (
-
                 focused ?
                     <View>
                         {/*小红点*/}
@@ -123,7 +124,7 @@ const Main = TabNavigator({
                     <View>
                         {/*小红点*/}
                         <View style={[comStyles.dot, {top: 1, right: 1}]}>
-                            <Text style={{color: '#fff', fontSize: 7}}>{event}</Text>
+                            <Text style={{color: '#fff', fontSize: 7}}></Text>
                         </View>
 
                         <Image
@@ -136,7 +137,7 @@ const Main = TabNavigator({
         }
         },
 
-    More: { screen: StackMore,
+    SMore: { screen: StackMore,
         navigationOptions: {
             tabBarLabel: '更多',
             // Note: By default the icon is only shown on iOS. Search the showIcon option below.
@@ -155,7 +156,6 @@ const Main = TabNavigator({
 
         } },
 },
-
 
 {
     tabBarOptions: {
@@ -183,11 +183,7 @@ const Main = TabNavigator({
 );
 
 
-
-
-
-
-const StackRoot = StackNavigator(
+export const StackRoot = StackNavigator(
     {
         Main: { screen: Main },
         Food: { screen: food },
@@ -198,5 +194,18 @@ const StackRoot = StackNavigator(
 );
 
 
+const AppWithNavigationState = ({ dispatch, nav }) => (
+    <StackRoot navigation={addNavigationHelpers({ dispatch, state: nav })} />
+);
 
-export default StackRoot;
+AppWithNavigationState.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    nav: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => ({
+    nav: state.nav,
+});
+
+
+export default connect(mapStateToProps)(AppWithNavigationState);

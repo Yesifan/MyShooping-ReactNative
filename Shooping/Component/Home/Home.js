@@ -12,18 +12,19 @@ import {
     TouchableOpacity,
     ScrollView,
 } from 'react-native';
-
-
+import {connect} from 'react-redux';
 
 import {comStyles,screenWidth} from '../../js/css.js'
 import HeaderBar from '../../js/Part/HeaderBar'
 import Swiper from '../../js/Part/Swiper'
 import TopView from './Son/com/TopListView'
 import ShowBar from './Son/com/ShowBar'
+import {Go} from '../../Redux/action/action'
 
 import TopMenu from '../../Data/TopMenu.json'
 import Adv from '../../Data/Adv.json'
 import RImage from '../../Data/RecommendImage.json'
+
 
 
 export default class Home extends Component {
@@ -89,18 +90,16 @@ export default class Home extends Component {
         return itemArr;
     }
 
-
     render() {
 
-        const { navigate } = this.props.navigation;
+        const { navigation } = this.props;
 
         //ShowBar的点击事件
         const ShowButton = {
             LButton:null,
-            RTButton:()=>navigate('Food',{event:'true'}),
+            RTButton:()=>navigation.dispatch(Go({routeName:'Food',params:{shop:'chickenShop',food:'Chicken'}})),
             RBButton:null
         };
-
 
         //console.log(this.props);
 
@@ -132,7 +131,6 @@ export default class Home extends Component {
                 </TouchableOpacity>
             </View>);
 
-
         return (
             <View style={comStyles.box}>
 
@@ -150,19 +148,20 @@ export default class Home extends Component {
                 <View style={styles.content}>
 
                     {/*顶部菜单栏*/}
-                    <Swiper
+                    <_Swiper
                         view={this.renderScrollItem()}
                         height={155}/>
 
                     {/*广告栏*/}
-                    <Swiper
+                    <__Swiper
                         view={this.renderAdvItem()}
                         center={false}
                         width={screenWidth-20}
                         height={96}
                         marginTop={10}
                         autoPlay={true}
-                        time={4000}/>
+                        time={4000}
+                        Code="_SELECT"/>
 
                     {/*推荐栏*/}
                     <ShowBar
@@ -185,6 +184,32 @@ export default class Home extends Component {
         );
     }
 }
+
+//把两个Swiper的state分开 这些应该没必要用redux把
+const _mapStateToProps = (state)=>{
+    //console.log('navigation',state);
+    return {
+        //state.XXX 必须与reducer同名
+        select:state.reducer.select,
+    }
+};
+
+const __mapStateToProps = (state)=>{
+    //console.log('navigation',state);
+    return {
+        //state.XXX 必须与reducer同名
+        select:state.reducer._select,
+    }
+};
+
+const _Swiper = connect(_mapStateToProps)(Swiper);
+
+const __Swiper = connect(__mapStateToProps)(Swiper);
+
+
+
+
+
 
 const styles = StyleSheet.create({
 

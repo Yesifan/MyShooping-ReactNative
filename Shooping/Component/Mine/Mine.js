@@ -13,8 +13,6 @@ import {
 
 } from 'react-native';
 
-import { NavigationActions } from 'react-navigation'
-
 import {comStyles,screenWidth} from '../../js/css.js'
 import HeaderBar from '../../js/Part/HeaderBar'
 import IconCell from '../../js/Part/IconCell'
@@ -68,13 +66,12 @@ export default class Mine extends Component {
 
     componentWillMount()
     {
-        this.props.navigation.setParams({event:this.state.event});
-        console.log("装载完成", this.props.navigation.state.params);
+        //this.props.navigation.setParams({event:14})
+
     }
     // 组件装载完成
     componentDidMount(){
 
-        console.log("Mine", this.props.navigation.state.params);
     }
 
     render() {

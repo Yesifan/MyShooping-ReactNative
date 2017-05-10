@@ -18,9 +18,6 @@ import HeaderBar from '../../../js/Part/HeaderBar.js'
 
 export default class AboutMe extends Component {
 
-
-
-
     render() {
         const  navigation  = this.props.navigation;
 
@@ -60,8 +57,7 @@ export default class AboutMe extends Component {
     }
 }
 
-export const styles = StyleSheet.create({
-
+const styles = StyleSheet.create({
     //导航栏上标题
     text:{
         fontSize: 18,
@@ -75,7 +71,5 @@ export const styles = StyleSheet.create({
         margin: 10,
         fontWeight:'bold'
     },
-
-
-})
+});
 

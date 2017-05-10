@@ -2,7 +2,7 @@
  * Created by y5049 on 2017/5/6.
  */
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes  } from 'react';
 import {
     StyleSheet,
     Text,
@@ -12,16 +12,15 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import {connect,Provider} from 'react-redux';
+import {connect} from 'react-redux';
 import { onOff } from '../../Redux/action/action'
-import { getStore } from '../../Redux/Store/configStore'
 
 const Dimensions = require('Dimensions');
 
 const screenWidth = Dimensions.get('window').width;
 
 
-const Store = getStore();
+//const Store = getStore();
 
 export default class IconCell extends Component {
 
@@ -47,7 +46,7 @@ export default class IconCell extends Component {
 
     render() {
         return (
-            <Provider store={getStore()}>
+            //<Provider store={getStore()}>
                 <TouchableOpacity onPress={this.props.button}>
 
                     <View style={styles.cell}>
@@ -77,33 +76,40 @@ export default class IconCell extends Component {
                         </View>
                     </View>
                 </TouchableOpacity>
-            </Provider>
+            // </Provider>
         );
     }
 }
 
-class SwitchView extends Component {
+// const SwitchView = ({ dispatch,OnOff }) => (
+//
+//     <Switch
+//         value={OnOff}
+//         onValueChange={() => dispatch(onOff())}
+//     />
+// );
 
-    _OnOff() {
-        const action = onOff();
-        Store.dispatch(action);
-    }
+class SwitchView extends Component
+{
 
-    render() {
-        return (
-            <Switch
-                value={this.props.OnOff}
-                onValueChange={this._OnOff.bind(this)}/>
-        )
 
+    render(){
+        //console.log(this.props);
+
+        return<Switch
+                    value={this.props.OnOff}
+                    onValueChange={() => this.props.dispatch(onOff())}/>
     }
 }
 
-const mapStateToProps = (state)=>{
+// SwitchView.propTypes = {
+//     dispatch: PropTypes.object.isRequired,
+// };
 
+const mapStateToProps = (state)=>{
+    //console.log('navigation',state);
     return {
         //state.XXX 必须与reducer同名
-
         OnOff:state.reducer.OnOff,
     }
 };

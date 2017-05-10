@@ -25,14 +25,10 @@ export default class food extends Component {
 
     componentDidMount(){
 
-        this.props.navigation.setParams({food:"food"});
-
-        console.log('food',this.props.navigation.state.params);
     };
 
     render() {
 
-        console.log(this.props);
 
         const  navigation  = this.props.navigation;
 

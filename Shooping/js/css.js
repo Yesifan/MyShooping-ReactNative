@@ -12,8 +12,6 @@ export const screenWidth = Dimensions.get('window').width;
 
 export const screenHeight = Dimensions.get('window').height;
 
-global.event = 14;
-
 export const comStyles = StyleSheet.create({
 
     //小标题
@@ -76,6 +74,6 @@ export const comStyles = StyleSheet.create({
         zIndex:1,
     },
 
-})
+});
 
 
