@@ -12,43 +12,42 @@ import {
     ScrollView,
 } from 'react-native';
 
+import { NavigationActions } from 'react-navigation'
+
 import {comStyles,screenWidth} from '../../js/css.js'
 import HeaderBar from '../../js/Part/HeaderBar'
 import IconCell from '../../js/Part/IconCell'
 
 export default class Mine extends Component {
 
+
+
     constructor(props) {
         super(props);
 
         this.state = {
+            event:14,
+
             avatar:'new_friend',
             userName:'点击我登陆',
+
             money:10000,
             collect:21,
         }
     }
 
-    static navigationOptions = {
-        tabBarLabel: '我的',
-        // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-        tabBarIcon: ({ tintColor }) => (
-            <View>
-                {/*小红点*/}
-                <View style={[comStyles.dot,{top:1, right:1}]}>
-                    <Text style={{color:'#fff',fontSize:7}}>14</Text>
-                </View>
-                <Image
-                    source={require('./icon_tabbar_mine.png')}
-                    style={[comStyles.icon, {tintColor: tintColor}]}
-                />
-            </View>
-        ),
-    };
+    // 组件装载完成
+    componentDidMount(){
+
+        this.props.navigation.setParams({event:this.state.event});
 
 
+        console.log("Mine", this.props.navigation.routes);
+    }
 
     render() {
+
+        const {navigation} = this.props;
 
         const userBox = (
             <TouchableOpacity onPress={()=>alert('这里写登陆')}>
@@ -153,6 +152,12 @@ export default class Mine extends Component {
 
         );
     }
+
+
+
+    // 组件即将卸载
+    componentWillUnmount(){
+    }
 }
 
 class ShowItem extends Component {
@@ -230,5 +235,5 @@ const styles = StyleSheet.create({
         justifyContent:'center',
 
     },
-})
+});
 

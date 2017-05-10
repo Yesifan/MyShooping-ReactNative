@@ -1,5 +1,7 @@
 /**
  * Created by y5049 on 2017/5/7.
+ *
+ * 一个bug:当你手指在此控件上 然后拉动了母View时 计时器会停止
  */
 'use strict';
 
@@ -24,7 +26,6 @@ export default class Swiper extends Component{
         super(props);
         this.state = {
             select:1,
-            autoPlay:false
         };
 
         this._index = 0;// 当前正在显示的图片
@@ -32,7 +33,22 @@ export default class Swiper extends Component{
         this.length = 0;
     }
 
-    // static defaultProps = {
+    static defaultProps = {
+
+        height:120,
+        width:screenWidth,
+        marginTop:0,
+
+        time:2000,
+        autoPlay:false,
+
+        center:true,
+
+        color:'#FFF'
+    };
+
+
+    //遍历方法
     //     view:(()=>{
     //         // 组件数组
     //         let itemArr = [];
@@ -45,7 +61,13 @@ export default class Swiper extends Component{
     //         }
     //         return itemArr;})
     //
-    // };
+    //另一种遍历方法 直接用map遍历
+    // -        let images = this.props.images.map((images) => {
+    //     -            return (
+    //         -                <TouchableWithoutFeedback>
+    //             -                    <View style={{width:screenWidth,height:200,backgroundColor:images.color}}/>
+    //             -                </TouchableWithoutFeedback>);
+    //     -        });
 
 
     renderScrollItem(){
@@ -53,7 +75,7 @@ export default class Swiper extends Component{
         // 组件数组
         let itemArr = [];
         //载入MenuJson
-        let dataArr = ['red','blue'];
+        let dataArr = ['orange','blue'];
 
         // 遍历创建组件
         for(var i=0; i<dataArr.length; i++){
@@ -82,15 +104,14 @@ export default class Swiper extends Component{
     render(){
 
         let itemArr = this.props.view?this.props.view:this.renderScrollItem();
-
-        // 小圆点位置居中显示
         this.length = itemArr.length;
 
+        // 小圆点位置显示计算
         let circleLength = 6 * this.length + 5 * 2 * this.length;
         let center = (screenWidth - circleLength) / 2;
 
         return(
-            <View style={{height:this.props.height,width:screenWidth,backgroundColor:'#fff'}}>
+            <View style={{height:this.props.height,width:this.props.width,backgroundColor:'#fff',marginTop:this.props.marginTop,}}>
                 <ScrollView
                     //横向滚动
                     horizontal={true}
@@ -98,8 +119,8 @@ export default class Swiper extends Component{
                     showsHorizontalScrollIndicator = {false}
                     showsVerticalScrollIndicator = {false}
 
-                    onTouchStart = {this.state.autoPlay? ()=>this._onTouchStart() : null}
-                    onTouchEnd = {this.state.autoPlay? ()=>this._onTouchEnd() : null}
+                    onTouchStart = {this.props.autoPlay? ()=>this._onTouchStart() : null}
+                    onTouchEnd = {this.props.autoPlay? ()=>this._onTouchEnd() : null}
 
                     onScrollEndDrag={(e)=>this._onScrollEndDrag(e)}
 
@@ -110,7 +131,7 @@ export default class Swiper extends Component{
                     </View>
                 </ScrollView>
 
-                <View style={{flexDirection:'row',position:'absolute',bottom:2,left:center}}>
+                <View style={{flexDirection:'row',position:'absolute',bottom:2,right:this.props.center?center:10}}>
                     {this.renderCircles(this.length)}
                 </View>
             </View>
@@ -169,7 +190,7 @@ export default class Swiper extends Component{
     //定时器
     _runFocusImage(){
         // 只有一个或者 autoPlay==false 则不启动定时任务
-        if(this.length <= 1 || !this.state.autoPlay){
+        if(this.length <= 1 || !this.props.autoPlay){
             return;
         }
         this._timer = setInterval(function () {
@@ -183,19 +204,19 @@ export default class Swiper extends Component{
 
             this._scrollView.scrollTo({x:this._index * screenWidth, y: 0,animated: true});
 
-        }.bind(this), 2000);
+        }.bind(this), this.props.time);
     }
 
     // 组件装载完成
     componentDidMount(){
-        console.log(this.props.view)
+        //console.log(this.props.view);
         this._runFocusImage();
     }
 
     // 组件即将卸载
     componentWillUnmount(){
         //if autoPlay==true
-        if(this.state.autoPlay)
+        if(this.props.autoPlay)
         {
             clearInterval(this._timer);
         }

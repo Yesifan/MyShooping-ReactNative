@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { View,Image,Text } from 'react-native';
-import { TabNavigator,StackNavigator } from 'react-navigation';
+import { TabNavigator,StackNavigator,NavigationActions } from 'react-navigation';
 
 import Home from './Component/Home/Home';
 import Shop from "./Component/Shop/Shop";
@@ -39,7 +39,7 @@ const StackShop = StackNavigator(
 
 const StackMine= StackNavigator(
     {
-        Mine: { screen: Mine },
+        Mine: { screen: Mine},
     },
 
     {
@@ -99,8 +99,8 @@ const Main = TabNavigator({
     Mine: { screen: StackMine,
         navigationOptions: {
             tabBarLabel: '我的',
-            // 通过focused来判断是否选中
-            tabBarIcon: ({focused}) => (
+            //通过focused来判断是否选中
+            tabBarIcon: ({ focused }) => (
                 focused?
                     <View>
                         {/*小红点*/}
@@ -112,8 +112,7 @@ const Main = TabNavigator({
                             source={{uri:'icon_tabbar_mine_selected'}}
                             style={[comStyles.icon]}
                         />
-                    </View>
-                    :
+                    </View> :
                     <View>
                         {/*小红点*/}
                         <View style={[comStyles.dot,{top:1, right:1}]}>
@@ -143,8 +142,11 @@ const Main = TabNavigator({
                         style={[comStyles.icon]}
                     />
             ),
+
+
         } },
 },
+
 
 {
     tabBarOptions: {
@@ -171,12 +173,16 @@ const Main = TabNavigator({
 
 );
 
+
+
+
+
+
 const StackRoot = StackNavigator(
     {
         Main: { screen: Main },
         Food: { screen: food },
     },
-
     {
         headerMode: 'none',
     }

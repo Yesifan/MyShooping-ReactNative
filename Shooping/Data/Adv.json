@@ -1,0 +1,14 @@
+{
+  "adv": [
+    {
+      "title" : "Rn",
+      "image" : "see",
+      "text" : "这是一个RN构建的App",
+    },
+    {
+      "title" : "WeChat",
+      "image" : "weixin",
+      "text"  : "这是我的微信"
+    }
+  ]
+}

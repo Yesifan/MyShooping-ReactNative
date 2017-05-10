@@ -9,7 +9,8 @@ import {
     Image,
     StyleSheet,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView,
 } from 'react-native';
 
 
@@ -17,9 +18,12 @@ import {
 import {comStyles,screenWidth} from '../../js/css.js'
 import HeaderBar from '../../js/Part/HeaderBar'
 import Swiper from '../../js/Part/Swiper'
-import TopMenu from '../../Data/TopMenu.json'
 import TopView from './Son/com/TopListView'
+import ShowBar from './Son/com/ShowBar'
 
+import TopMenu from '../../Data/TopMenu.json'
+import Adv from '../../Data/Adv.json'
+import RImage from '../../Data/RecommendImage.json'
 
 
 export default class Home extends Component {
@@ -39,15 +43,17 @@ export default class Home extends Component {
 
     }
 
+    //返回菜单栏
     renderScrollItem(){
 
         // 组件数组
         let itemArr = [];
         //载入MenuJson
         let dataArr = TopMenu.data;
-        console.log(dataArr.length);
+
+        //console.log(dataArr);
         // 遍历创建组件
-        for(var i=0; i<dataArr.length; i++){
+        for(let i=0; i<dataArr.length; i++){
             itemArr.push( <TopView dataArr={dataArr[i]}/> );
         }
 
@@ -55,11 +61,48 @@ export default class Home extends Component {
 
     }
 
+    //返回广告
+    renderAdvItem(){
+
+        // 组件数组
+        let itemArr = [];
+        //载入MenuJson
+        let dataArr = Adv.adv;
+
+        //点击事件
+        let advButton = [()=>this.props.navigation.navigate('Food'),()=>alert('Hi')];
+
+        //console.log(Image);
+        // 遍历创建组件
+        for(let i=0; i<dataArr.length; i++){
+
+            itemArr.push(
+                <TouchableOpacity onPress={advButton[i]}>
+                    <View style={styles.advView}>
+                        <Image source={{uri:dataArr[i].image}} style={{width:80,height:80}}/>
+
+                        <Text style={styles.advText}>{dataArr[i].text}</Text>
+                    </View>
+                </TouchableOpacity>);
+        }
+
+        return itemArr;
+    }
+
+
     render() {
 
         const { navigate } = this.props.navigation;
 
-        console.log(this.props.navigation.state);
+        //ShowBar的点击事件
+        const ShowButton = {
+            LButton:null,
+            RTButton:()=>navigate('Food'),
+            RBButton:null
+        };
+
+
+        //console.log(this.props);
 
         //这里要写下拉栏
         const left = (<Text style={comStyles.text}>温州</Text>);
@@ -98,16 +141,46 @@ export default class Home extends Component {
                    middle={middle}
                    right={right}
                 />
+                <ScrollView
+                    showsHorizontalScrollIndicator = {false}
+                    showsVerticalScrollIndicator = {false}
+                    onStartShouldSetResponderCapture={(evt) => true}
+                    onMoveShouldSetResponderCapture={(evt) => true}>
 
                 <View style={styles.content}>
 
+                    {/*顶部菜单栏*/}
                     <Swiper
                         view={this.renderScrollItem()}
                         height={155}/>
 
-                    <Text style={comStyles.title}  onPress={() => navigate('Food')}>home</Text>
+                    {/*广告栏*/}
+                    <Swiper
+                        view={this.renderAdvItem()}
+                        center={false}
+                        width={screenWidth-20}
+                        height={96}
+                        marginTop={10}
+                        autoPlay={true}
+                        time={4000}/>
+
+                    {/*推荐栏*/}
+                    <ShowBar
+                        title="热门推荐"
+                        RImage={RImage}
+                        button={ShowButton}
+                    />
+
+                    <ShowBar
+                        title="有好货"
+                        RImage={RImage}
+                        button={ShowButton}
+                    />
+
                 </View>
+                </ScrollView>
             </View>
+
 
         );
     }
@@ -137,10 +210,6 @@ const styles = StyleSheet.create({
         borderRadius:30,
     },
 
-    wrapper: {
-
-    },
-
     text: {
         color: '#000',
         fontSize: 30,
@@ -150,6 +219,20 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         alignItems: 'center',
+    },
+
+    advView:{
+        width:screenWidth,
+        flexDirection:'row',
+        alignItems:'center',
+        margin:8
+    },
+
+    advText:{
+        fontSize: 20,
+        textAlign: 'center',
+        color: '#000',
+        marginLeft:25,
     }
 
 })

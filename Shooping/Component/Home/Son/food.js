@@ -15,7 +15,6 @@ import {comStyles} from '../../../js/css.js'
 
 import HeaderBar from '../../../js/Part/HeaderBar.js'
 
-import { NavigationActions } from 'react-navigation'
 
 export default class food extends Component {
 
@@ -24,10 +23,18 @@ export default class food extends Component {
     }
 
 
-    render() {
-        const  navigation  = this.props.navigation;
+    componentDidMount(){
 
-        const backAction = NavigationActions.back()
+        this.props.navigation.setParams({event:1});
+        console.log('food',this.props.navigation.setParams);
+        console.log('food',this.props.navigation.state.params);
+    };
+
+    render() {
+
+        console.log(this.props);
+
+        const  navigation  = this.props.navigation;
 
         const text = (<Text style={comStyles.text}>Food</Text>);
 
