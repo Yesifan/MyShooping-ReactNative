@@ -1,0 +1,83 @@
+.login  {
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+
+
+    border:1px solid ;
+    border-radius:25px;
+
+    box-shadow: 10px 10px 5px #888888;
+
+    width:500px;
+    height:300px;
+
+    margin-top: 30px;
+}
+
+.input {
+    display: flex;
+    width: 300px;
+    height: 30px;
+}
+
+.inputField {
+    flex: 1;
+    border:1px solid #00B7FF;
+    font-size: 16px;
+
+}
+
+.inputItem {
+    width: 60px ;
+    text-align:center;
+    background-color: #00B7FF;
+    border:1px solid #00B7FF;
+    line-height:30px;
+    color: #fff;
+
+}
+
+.inputButton{
+    width: 300px ;
+    height: 40px;
+
+    font-size: 20px;
+
+    margin-top: 30px;
+    border-radius: 5px;
+    border:0 solid ;
+    background-color: #00B7FF;
+    color: #fff;
+}
+
+.warning{
+    color: red;
+    padding: 5px;
+}
+.bottomBox {
+    display: flex;
+
+    flex-direction: row;
+    align-self:flex-end;
+
+    margin-top: 40px;
+    margin-right: 30px;
+    bottom: 30px;
+
+    width: auto;
+    height: auto;
+
+}
+
+
+.link{
+    color: #225592;
+    text-decoration: none;
+}
+
+.dotted{
+    color: #bfbfbf;
+    margin: 0 5px;
+}
