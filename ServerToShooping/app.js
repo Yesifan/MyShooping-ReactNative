@@ -1,5 +1,7 @@
 var express = require('express');
 
+var session = require('express-session');
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -7,13 +9,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 
-
 var index = require('./routes/index');
 var users = require('./routes/users');
 var server = require('./routes/server');
 
 var app = express();
-
 
 
 // view engine setup
@@ -26,48 +26,36 @@ app.engine('html', ejs.renderFile);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+//app.use(cookieParser());
+
+app.use(session({
+    name: 'shooping',
+    secret: 'Ye Si fan',
+    resave: true,
+    saveUninitialized: false,
+    cookie: { maxAge: 30000 }
+}));
 
 //静态文件配置
 app.use(express.static(path.join(__dirname, 'react/public')));
 
-app.use('/', index);
+
+app.use('/', users);
 app.use('/server', server);
-app.use('/users', users);
+app.use('/index', index);
 
 
-// app.use(function (req, res, next) {
-//
-//     const expireTime = 1000 * 60;
-//
-//     res.header('Access-Control-Expose-Headers', 'access-token');
-//     const now = Date.now();
-//
-//     let unauthorized = true;
-//     const token = req.headers['access-token'];
-//     if (token) {
-//         const expired = now - token > expireTime;
-//         if (!expired) {
-//             unauthorized = false;
-//             res.header('access-token', now);
-//         }
-//     }
-//
-//     if (unauthorized) {
-//         res.sendStatus(401);
-//     } else {
-//         next();
-//     }
-// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    let err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler

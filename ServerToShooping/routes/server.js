@@ -2,6 +2,7 @@
  * Created by y5049 on 2017/5/14.
  */
 const express = require('express');
+var session = require('express-session');
 const router = express.Router();
 
 function select(sql) {
@@ -16,8 +17,7 @@ function select(sql) {
         });
 
         connection.connect();
-
-        connection.query("USE yesifan");
+        connection.query("USE shooping");
 
         connection.query(sql, function(err, rows, fields) {
             if (err||rows.length === 0) {
@@ -37,22 +37,26 @@ function select(sql) {
     return promise;
 }
 
+
 //登陆验证
-router.post('/signup', function(req, res, next) {
-
+router.post('/login', function(req, res, next) {
     const _user = req.body.user;
-
     const name = _user.name;
     const password = _user.password;
 
-    select('SELECT id FROM myuser WHERE user="'+name+'" and password="'+password+'";')
+    select('SELECT id FROM admin WHERE username="'+name+'" and password="'+password+'";')
         .then(function (data) {
+            //验证成功
+            req.session.user = {user:{name:name,id:data.rows[0].id}};
 
-            console.log(data.rows[0]);
+            console.log(req.session.user);
+            console.log(req.sessionID);
+            console.log(req.cookies);
 
             res.json({
                 id:data.rows[0].id,
-                state:true
+                state:true,
+                token:Date.now()
             })
         })
         .catch(function(err){
@@ -61,5 +65,24 @@ router.post('/signup', function(req, res, next) {
         })
 
 });
+
+router.get('/readshop', function(req, res, next) {
+
+    select('SELECT * FROM shop;')
+        .then(function (data) {
+            //验证成功
+            res.send(data.rows);
+            // res.json({
+            //     shop:data.rows,
+            //     state:true,
+            // })
+        })
+        .catch(function(err){
+            res.json({state:false});
+            console.log('err',err)
+        })
+
+});
+
 
 module.exports = router;

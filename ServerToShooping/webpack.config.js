@@ -11,11 +11,12 @@ module.exports = {
     context: path.resolve(__dirname, './react/src'),
 
     entry: {
-        app: './main.js'                                   //已多次提及的唯一入口文件
+        app: './main.js',
+        login:'./login.js'
     },
     output: {
-        path: path.resolve(__dirname, './react/public'),       //打包后的文件存放的地方
-        filename: "[name].bundle.js"                                       //打包后输出文件的文件名
+        path: path.resolve(__dirname, './react/public'),            //打包后的文件存放的地方
+        filename: "[name].bundle.js"                                //打包后输出文件的文件名
     },
 
     module: {
@@ -42,6 +43,15 @@ module.exports = {
                     use: [{
                         loader: 'babel-loader',
                         options: { presets: ['es2015','react'] },
+
+                    }],
+                },
+                {
+                    test: /\.(png|jpg)$/,
+
+                    use: [{
+                        loader: 'url-loader',
+                        options: { limit: 81920,name:'images/[hash:8].[name].[ext]' },
 
                     }],
                 },

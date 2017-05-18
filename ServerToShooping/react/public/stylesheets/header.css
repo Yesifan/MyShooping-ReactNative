@@ -1,0 +1,28 @@
+.header{
+    display: flex;
+    align-items: center;
+    background-color: #2f2f4f;
+    height: 60px;
+    width: 100%;
+}
+
+.title{
+    text-align:center;
+    font-size: 30px;
+    margin-left: 10px;
+    color: #fff;
+}
+
+.welcome{
+    font-size: 20px;
+    margin-left: 10px;
+    color: #fff;
+}
+
+
+.a{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #00B7FF;
+}

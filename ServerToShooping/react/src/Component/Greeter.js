@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 
-import config from '../public/Json/config.json';
+import config from '../../public/Json/config.json';
 
 
 

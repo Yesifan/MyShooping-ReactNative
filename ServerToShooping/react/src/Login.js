@@ -2,12 +2,8 @@
  * Created by y5049 on 2017/5/13.
  */
 import React, {Component} from 'react'
-import {
-    BrowserRouter as Router,
-    Route,
-    Redirect,
-    Link
-} from 'react-router-dom'
+
+import {render} from 'react-dom';
 
 import styles from '../public/stylesheets/login.css';//导入
 
@@ -19,8 +15,10 @@ const fakeAuth = {
     },
 
     fetchLogin(user,password,go,warning) {
-        fetch('/server/login',
+        fetch('http://192.168.111.2:3000/server/login',
             {
+                //允许接收cookie
+                credentials: 'include',
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -33,9 +31,12 @@ const fakeAuth = {
                     }
                 })})
             .then((response) => response.json())
-            .then((responseJson) => {
+            .then((resJson) => {
+                console.log(resJson);
                 this.isAuthenticated = true;
-                responseJson.state? setTimeout(go, 100) : setTimeout(warning, 100);
+
+                //如果返回true则跳转
+                resJson.state? setTimeout(go, 100) : setTimeout(warning, 100);
                  })
             .catch((error) => {console.error(error);});
     }
@@ -56,18 +57,9 @@ class LoginBox extends Component{
         };
     }
 
-
     render() {
-
         //const { from } = this.props.location.state || { from: { pathname: 'main' } };
-        const { redirectToReferrer,user,password } = this.state;
-
-
-        if (redirectToReferrer) {
-            return (
-                <Redirect to={'main'}/>
-            )
-        }
+        const { user,password } = this.state;
 
         return (
             <div style={{display:'flex',alignItems:'center',flexDirection:'column',flex:1}}>
@@ -94,14 +86,16 @@ class LoginBox extends Component{
                     <span className={styles.warning} style={{opacity:this.state.opacity}}>! 密码或用户名错误</span>
 
                     <button className={styles.inputButton}
-                            onClick={() => {
+                            onClick={
+                                () => {
                                 fakeAuth.fetchLogin(user,password,
-                                    () => {this.setState({ redirectToReferrer: true })},()=>this.setState({opacity:1}))}}>登 陆</button>
+                                    () => window.location.href='/index',()=>this.setState({opacity:1}))}
+                            }>登 陆</button>
 
                     <div className={styles.bottomBox}>
-                        <Link className={styles.link} to="about">忘记密码</Link>
+                        <a className={styles.link} href="/index">忘记密码</a>
                         <span className={styles.dotted}>|</span>
-                        <Link className={styles.link} to="about">注册</Link>
+                        <a className={styles.link} href="/index">注册</a>
                     </div>
 
                 </div>
@@ -112,4 +106,4 @@ class LoginBox extends Component{
 }
 
 
-export default LoginBox
+render(<LoginBox />, document.getElementById('login'));
