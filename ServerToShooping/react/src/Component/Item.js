@@ -86,7 +86,7 @@ class Item extends Component{
         return (
             <span>
                 <span style={this.props.isTitle?styles.titleItem:styles.item}>
-                    {this.props.isTitle? null : <img style={styles.image} src={this.props.icon?require('../../public/images/' + this.props.icon + ".png"):require('../../public/images/icon_shop.png')} />}
+                    {this.props.isTitle? null : <img style={styles.image} src={this.props.icon?'../../images/' + this.props.icon + '.png':require('../../public/images/icon_shop.png')} />}
 
                     {renderItems(this.props.items)}
 

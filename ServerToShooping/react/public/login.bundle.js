@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 236);
+/******/ 	return __webpack_require__(__webpack_require__.s = 235);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -22542,15 +22542,13 @@ module.exports = function (css) {
 /* 200 */,
 /* 201 */,
 /* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(240);
+var content = __webpack_require__(239);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -22575,6 +22573,8 @@ if(false) {
 }
 
 /***/ }),
+/* 204 */,
+/* 205 */,
 /* 206 */,
 /* 207 */,
 /* 208 */,
@@ -22604,8 +22604,7 @@ if(false) {
 /* 232 */,
 /* 233 */,
 /* 234 */,
-/* 235 */,
-/* 236 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22619,7 +22618,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(87);
 
-var _login = __webpack_require__(205);
+var _login = __webpack_require__(203);
 
 var _login2 = _interopRequireDefault(_login);
 
@@ -22784,10 +22783,10 @@ var LoginBox = function (_Component) {
 (0, _reactDom.render)(_react2.default.createElement(LoginBox, null), document.getElementById('login'));
 
 /***/ }),
+/* 236 */,
 /* 237 */,
 /* 238 */,
-/* 239 */,
-/* 240 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(55)(undefined);
