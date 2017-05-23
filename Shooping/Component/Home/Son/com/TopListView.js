@@ -1,5 +1,6 @@
 /**
  * Created by y5049 on 2017/5/8.
+ * 这是滑动菜单分离出来的子组件
  */
 
 'use strict';
@@ -13,6 +14,7 @@ import {
     ListView,
     TouchableOpacity,
 } from 'react-native';
+
 
 
 const Dimensions = require('Dimensions');
@@ -37,9 +39,9 @@ export default class TopListView extends Component {
     };
 
     static defaultProps = {
-        dataArr: []
-    };
+        dataArr: [],
 
+    };
 
     render() {
         return (<ListView
@@ -64,6 +66,8 @@ export default class TopListView extends Component {
         );
     }
 }
+
+
 
 
 const styles = StyleSheet.create({

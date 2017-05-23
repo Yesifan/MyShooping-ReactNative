@@ -88,6 +88,10 @@ export default class IconCell extends Component {
 //         onValueChange={() => dispatch(onOff())}
 //     />
 // );
+//
+// SwitchView.propTypes = {
+//     dispatch: PropTypes.object.isRequired,
+// };
 
 class SwitchView extends Component
 {
@@ -97,14 +101,10 @@ class SwitchView extends Component
         //console.log(this.props);
 
         return<Switch
-                    value={this.props.OnOff}
-                    onValueChange={() => this.props.dispatch(onOff())}/>
+            value={this.props.OnOff}
+            onValueChange={() => this.props.dispatch(onOff())}/>
     }
 }
-
-// SwitchView.propTypes = {
-//     dispatch: PropTypes.object.isRequired,
-// };
 
 const mapStateToProps = (state)=>{
     //console.log('navigation',state);
@@ -114,6 +114,7 @@ const mapStateToProps = (state)=>{
     }
 };
 
+//继承了Store的开关控件
 const _Switch = connect(mapStateToProps)(SwitchView);
 
 export const styles = StyleSheet.create({

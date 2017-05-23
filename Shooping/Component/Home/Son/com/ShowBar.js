@@ -1,9 +1,6 @@
 /**
  * Created by y5049 on 2017/5/9.
  */
-/**
- * Created by y5049 on 2017/5/6.
- */
 
 import React, { Component } from 'react';
 import {
@@ -64,24 +61,29 @@ export default class ShowBar extends Component {
 
                 <View style={[styles.cell,{width: this.props.width, height: this.props.height}]}>
 
+                    {/*左部*/}
                     <View style={styles.leftCell}>
-
-                        <Image
-                            source={{uri:this.props.RImage.LIcon}}
-                            style={{position:'absolute',top:0,left:10,width:76,height:76,zIndex:1}}
-                        />
-
-                        <TouchableOpacity onPress={this.props.button.LButton}>
+                        {/*左部推荐栏*/}
+                        <View>
                             <Image
-                                source={{uri:this.props.RImage.LUri}}
-                                style={{width:this.props.width/2-10,height:this.props.height-10}}
+                                source={{uri:this.props.RImage.LIcon}}
+                                style={{position:'absolute',top:0,left:0,width:76,height:76,zIndex:1}}
                             />
-                        </TouchableOpacity>
+
+                            <TouchableOpacity onPress={this.props.button.LButton}>
+                                <Image
+                                    source={{uri:this.props.RImage.LUri}}
+                                    style={{width:this.props.width/2-10,height:this.props.height-10}}
+                                />
+                            </TouchableOpacity>
+                        </View>
 
                     </View>
 
+                    {/*右部*/}
                     <View style={styles.rightCell}>
 
+                        {/*右部上方推荐栏 设置下方边框线*/}
                         <View style={{borderBottomWidth:0.5,borderColor:'#DBDBDB'}}>
                             <Image
                                 source={{uri:this.props.RImage.RTIcon}}
@@ -94,7 +96,7 @@ export default class ShowBar extends Component {
                                 />
                             </TouchableOpacity>
                         </View>
-
+                        {/*右部下方推荐栏*/}
                         <View>
                             <Image
                                 source={{uri:this.props.RImage.RBIcon}}

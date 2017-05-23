@@ -36,7 +36,7 @@ export const comStyles = StyleSheet.create({
         width: screenWidth,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FAFAFA',
+        backgroundColor: '#f5f5f5',
     },
 
     content: {

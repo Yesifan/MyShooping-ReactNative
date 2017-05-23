@@ -44,9 +44,7 @@ export default class Swiper extends Component{
         autoPlay:false,
 
         center:true,
-
         color:'#FFF',
-
         Code:'SELECT',
     };
 
@@ -72,6 +70,7 @@ export default class Swiper extends Component{
     //     -        });
 
 
+    //默认渲染的页面
     renderScrollItem(){
 
         // 组件数组
@@ -105,7 +104,9 @@ export default class Swiper extends Component{
 
     render(){
 
+        //是否可以读取到view 否则的话渲染默认页面
         let itemArr = this.props.view?this.props.view:this.renderScrollItem();
+
         this.length = itemArr.length;
 
         // 小圆点位置显示计算
@@ -140,10 +141,7 @@ export default class Swiper extends Component{
         );
     }
 
-    _select(index)
-    {
-        this.props.dispatch(select(index))
-    }
+
 
     // 当手指按到scrollView时停止定时任务
     _onTouchStart(){
@@ -167,22 +165,22 @@ export default class Swiper extends Component{
 
         if((this.x - screenWidth * this._index) > 100)
         {
-            console.log("我大于100了吗"+(this.x - screenWidth * this._index));
+            //console.log("我大于100了吗"+(this.x - screenWidth * this._index));
             this._index++;
+
             this.props.dispatch(swiper({type:this.props.Code,index:this._index+1}))
         }
         else
         {
             if((this.x - screenWidth * this._index) < -100)
             {
-                console.log("我小于-100了吗"+(this.x - screenWidth * this._index));
+                //console.log("我小于-100了吗"+(this.x - screenWidth * this._index));
                 this._index--;
+
                 this.props.dispatch(swiper({type:this.props.Code,index:this._index+1}))
             }
         }
 
-        //三目运算符
-        //((this.x - screenWidth * this._index) > 100)? this._index = this._index + 1:((this.x - screenWidth * this._index) < -100)? this._index = this._index - 1:null;
 
         //移动
         this._scrollView.scrollTo({x:this._index * screenWidth, y: 0,animated: true});
@@ -200,23 +198,33 @@ export default class Swiper extends Component{
         if(this.length <= 1 || !this.props.autoPlay){
             return;
         }
-        this._timer = setInterval(function () {
-            this._index++;
-            if(this._index >= this.length){
-                this._index = 0;
-            }
 
-            // 重置小圆点指示器
-            this.props.dispatch(swiper({type:this.props.Code,index:this._index+1}))
 
-            this._scrollView.scrollTo({x:this._index * screenWidth, y: 0,animated: true});
 
-        }.bind(this), this.props.time);
+        //莫名其妙的定时函数
+        this._timer = setInterval(()=>{
+                this._index++;
+
+                if(this._index >= this.length){
+                    this._index = 0;
+                }
+
+
+                console.log(this.length);
+
+                console.log(this._index);
+
+                //dispatch
+                this.props.dispatch(swiper({type:this.props.Code,index:this._index+1}));
+
+                this._scrollView.scrollTo({x:this._index * screenWidth, y: 0,animated: true});
+            }, 10000);
     }
 
     // 组件装载完成
     componentDidMount(){
         //console.log(this.props.view);
+
         this._runFocusImage();
     }
 
@@ -230,15 +238,7 @@ export default class Swiper extends Component{
     }
 }
 
-// const mapStateToProps = (state)=>{
-//     //console.log('navigation',state);
-//     return {
-//         //state.XXX 必须与reducer同名
-//         select:state.reducer.select,
-//     }
-// };
-//
-// const _Swiper = connect(mapStateToProps)(Swiper);
+
 
 
 

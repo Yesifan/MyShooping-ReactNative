@@ -207,10 +207,6 @@ const _Swiper = connect(_mapStateToProps)(Swiper);
 const __Swiper = connect(__mapStateToProps)(Swiper);
 
 
-
-
-
-
 const styles = StyleSheet.create({
 
     rightBar: {
@@ -260,7 +256,7 @@ const styles = StyleSheet.create({
         marginLeft:25,
     }
 
-})
+});
 
 
 

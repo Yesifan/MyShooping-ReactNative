@@ -22,12 +22,12 @@ export function swiper(data) {
     }
 }
 
-export const dataSource = (data)=>(
-    {
-        type:'DATA_SOURCE',
-        dataSource:data,
-    }
-);
+// export const dataSource = (data)=>(
+//     {
+//         type:'DATA_SOURCE',
+//         dataSource:data,
+//     }
+// );
 
 export const avatar = (data)=>(
     {

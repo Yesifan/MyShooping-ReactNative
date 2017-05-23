@@ -50,7 +50,8 @@ const initialAuthState =
         _select:1,
         avatar:'new_friend',
         userName:'点击我登陆',
-        money:'0',
+        money:'500',
+        pay:true,
         collect:'0',
         event:10
     };
@@ -75,10 +76,10 @@ export function reducer(state = initialAuthState, action)
                 _select: action.select
             });
 
-        case 'DATA_SOURCE':
-            return Object.assign({}, state, {
-                dataSource: action.dataSource
-            });
+        // case 'DATA_SOURCE':
+        //     return Object.assign({}, state, {
+        //         dataSource: action.dataSource
+        //     });
 
         case 'AVATAR':
             return Object.assign({}, state, {
@@ -91,8 +92,21 @@ export function reducer(state = initialAuthState, action)
             });
 
         case 'MONEY':
+            let over;
+            let pay;
+            if(state.money-action.money>=0)
+            {
+                over = state.money-action.money;
+                pay = true;
+            }else
+            {
+                over = state.money;
+                pay = false;
+            }
+
             return Object.assign({}, state, {
-                money: action.money
+                money : over,
+                pay :pay
             });
 
         case 'COLLECT':

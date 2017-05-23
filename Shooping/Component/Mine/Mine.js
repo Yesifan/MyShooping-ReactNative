@@ -12,14 +12,16 @@ import {
     ScrollView,
 
 } from 'react-native';
+import {connect} from 'react-redux';
 
+import { avatar,userName,money,collect } from '../../Redux/action/action'
 import {comStyles,screenWidth} from '../../js/css.js'
 import HeaderBar from '../../js/Part/HeaderBar'
 import IconCell from '../../js/Part/IconCell'
 
 
 
-export default class Mine extends Component {
+class Mine extends Component {
 
     // static navigationOptions = {
     //
@@ -53,21 +55,11 @@ export default class Mine extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            event:14,
-
-            avatar:'new_friend',
-            userName:'点击我登陆',
-
-            money:10000,
-            collect:21,
-        };
     }
 
     componentWillMount()
     {
         //this.props.navigation.setParams({event:14})
-
     }
     // 组件装载完成
     componentDidMount(){
@@ -76,7 +68,7 @@ export default class Mine extends Component {
 
     render() {
 
-        const {navigation} = this.props;
+        //const {navigation} = this.props;
 
         const userBox = (
             <TouchableOpacity onPress={()=>alert('这里写登陆')}>
@@ -84,12 +76,12 @@ export default class Mine extends Component {
 
                     {/*头像*/}
                     <Image
-                        source={{uri:this.state.avatar}}
+                        source={{uri:this.props.avatar}}
                         style={[styles.avatar]}
                     />
 
                     {/*名字*/}
-                    <Text style={comStyles.text}>{this.state.userName}</Text>
+                    <Text style={comStyles.text}>{this.props.userName}</Text>
 
                 </View>
             </TouchableOpacity>
@@ -116,12 +108,17 @@ export default class Mine extends Component {
                     {/*头部cell*/}
                     <View style={styles.sonBar}>
 
-                        <TouchableOpacity style={{flex:1}} onPress = {()=>this.setState({money:this.state.money - 200})}>
-                            <ShowItem number = {`${this.state.money}`} title="余额"/>
+                        <TouchableOpacity style={{flex:1}}
+                                          onPress = {()=>{
+                                              let action = money(200);
+                                              this.props.dispatch( action );
+                                              if(this.props.pay===false) { alert('余额不足，请充值'); }}}>
+
+                            <ShowItem number = {`${this.props.money}`} title="余额"/>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{flex:1}} onPress = {()=>alert("您有"+this.state.collect+"个收藏")}>
-                            <ShowItem number = {`${this.state.collect}`} title="收藏"/>
+                        <TouchableOpacity style={{flex:1}} onPress = {()=>alert("您有"+this.props.collect+"个收藏")}>
+                            <ShowItem number = {`${this.props.collect}`} title="收藏"/>
                         </TouchableOpacity>
 
                     </View>
@@ -183,11 +180,27 @@ export default class Mine extends Component {
     }
 
 
-
     // 组件即将卸载
     componentWillUnmount(){
     }
 }
+
+const mapStateToProps = (state)=>{
+    //console.log('navigation',state);
+    return {
+        avatar : state.reducer.avatar,
+        userName : state.reducer.userName,
+        money : state.reducer.money,
+        collect : state.reducer.collect,
+        event : state.reducer.event,
+        pay : state.reducer.pay
+    }
+};
+
+//继承了Store的开关控件
+const _Mine = connect(mapStateToProps)(Mine);
+
+export default _Mine;
 
 class ShowItem extends Component {
     render(){
