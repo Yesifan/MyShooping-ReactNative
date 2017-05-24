@@ -13,13 +13,13 @@ router.get('/', function(req, res, next) {
     //     res.redirect('/')
     // }
 
-    console.log(req.session);
-    console.log(req.cookies);
+    // console.log(req.session);
+    // console.log(req.cookies);
 
     //console.log(req.session);
 
     //打开主页面index
-    res.render('index',{session:req.session});
+    res.render('index');
 
     //res.render('index', { title: 'Express' });
 

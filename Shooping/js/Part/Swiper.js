@@ -210,9 +210,9 @@ export default class Swiper extends Component{
                 }
 
 
-                console.log(this.length);
-
-                console.log(this._index);
+                // console.log(this.length);
+                //
+                // console.log(this._index);
 
                 //dispatch
                 this.props.dispatch(swiper({type:this.props.Code,index:this._index+1}));

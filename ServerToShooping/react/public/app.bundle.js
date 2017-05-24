@@ -24037,6 +24037,9 @@ var ShopManage = function (_Component) {
 
             this.handleGetShop();
         }
+
+        //通过fetch获得商家列表
+
     }, {
         key: 'handleGetShop',
         value: function handleGetShop() {
@@ -24052,15 +24055,24 @@ var ShopManage = function (_Component) {
                 return response.json();
             }).then(function (resJson) {
                 _this2.setState({ shop: resJson });
+                resJson.map(function (value) {
+                    return console.log(value);
+                });
             }).catch(function (error) {
                 console.error(error);
             });
         }
+
+        //生成商家信息的辅助函数
+
     }, {
         key: 'handleItems',
         value: function handleItems(value) {
             return [value.name, value.type, '1533484 次/天'];
         }
+
+        //读取图片的钩子
+
     }, {
         key: 'handleChange',
         value: function handleChange(e) {
@@ -24079,6 +24091,9 @@ var ShopManage = function (_Component) {
 
             this.setState({ files: files[0] });
         }
+
+        //上传商家信息的函数
+
     }, {
         key: 'handleUpload',
         value: function handleUpload() {

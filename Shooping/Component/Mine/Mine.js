@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 
-import { avatar,userName,money,collect } from '../../Redux/action/action'
+import { money,collect,loginUser } from '../../Redux/action/action'
 import {comStyles,screenWidth} from '../../js/css.js'
 import HeaderBar from '../../js/Part/HeaderBar'
 import IconCell from '../../js/Part/IconCell'
@@ -67,11 +67,12 @@ class Mine extends Component {
     }
 
     render() {
+        let { navigation } = this.props;
 
         //const {navigation} = this.props;
 
         const userBox = (
-            <TouchableOpacity onPress={()=>alert('这里写登陆')}>
+            <TouchableOpacity onPress={()=>console.log(this.props.userid?null:navigation.navigate('Login'))}>
                 <View style={styles.userBox}>
 
                     {/*头像*/}
@@ -81,7 +82,7 @@ class Mine extends Component {
                     />
 
                     {/*名字*/}
-                    <Text style={comStyles.text}>{this.props.userName}</Text>
+                    <Text style={comStyles.text}>{this.props.nickname}</Text>
 
                 </View>
             </TouchableOpacity>
@@ -171,6 +172,15 @@ class Mine extends Component {
                                 <IconCell title = "我要合作" icon="cnxh" button={()=>{alert("xxx")}} extends={ <Text>轻松开店，招财进宝！</Text> }/>
                             </View>
 
+                            <View style={{marginTop:10}}>
+                                <IconCell title = "退出登陆" icon="pay" button={()=>
+                                {
+                                    //退出登陆 清空storage 重置state
+                                    storage.remove({key:'loginState'});
+                                    this.props.dispatch(loginUser(null))
+                                }}/>
+                            </View>
+
                         </ScrollView>
                     </View>
                 </View>
@@ -188,8 +198,10 @@ class Mine extends Component {
 const mapStateToProps = (state)=>{
     //console.log('navigation',state);
     return {
-        avatar : state.reducer.avatar,
-        userName : state.reducer.userName,
+        avatar : state.reducer.user.avatar,
+        nickname : state.reducer.user.nickname,
+        userid : state.reducer.user.userid,
+
         money : state.reducer.money,
         collect : state.reducer.collect,
         event : state.reducer.event,
@@ -197,7 +209,7 @@ const mapStateToProps = (state)=>{
     }
 };
 
-//继承了Store的开关控件
+//继承了Store的控件
 const _Mine = connect(mapStateToProps)(Mine);
 
 export default _Mine;

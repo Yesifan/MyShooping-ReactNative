@@ -6,6 +6,8 @@ import { NavigationActions } from 'react-navigation';
 
 import { StackRoot } from '../../Main';
 
+import {loginUser} from '../action/action'
+
 // Start with two routes: The Main screen, with the Login screen on top.
 const firstAction = StackRoot.router.getActionForPathAndParams('Main');
 
@@ -15,10 +17,10 @@ const secondAction = StackRoot.router.getActionForPathAndParams('Food');
 
 const initialNavState = StackRoot.router.getStateForAction(tempNavState);
 
-console.log('firstAction',firstAction);
-console.log('2',tempNavState);
-console.log('3',secondAction);
-console.log('4',initialNavState);
+// console.log('firstAction',firstAction);
+// console.log('2',tempNavState);
+// console.log('3',secondAction);
+// console.log('4',initialNavState);
 
 //跳转Reducer
 export function nav(state = initialNavState, action) {
@@ -43,17 +45,39 @@ export function nav(state = initialNavState, action) {
     return nextState || state;
 }
 
+
+//查看有无已登陆用户
+storage.load({
+    key: 'loginState',
+    autoSync: false,
+    syncInBackground: true,
+    })
+    .then(ret => {
+        initialAuthState.user = ret;
+    })
+    .catch(err => {
+        //如果没有找到数据且没有sync方法，
+        console.log(err);
+        console.log('无已登陆用户');});
+
+//user初始状态
+let user = {
+    avatar:'new_friend',
+    nickname:'点击我登陆',
+    userid:null};
+
 const initialAuthState =
     {
         OnOff:false,
         select:1,
         _select:1,
-        avatar:'new_friend',
-        userName:'点击我登陆',
+
         money:'500',
         pay:true,
         collect:'0',
-        event:10
+        event:10,
+
+        user: user
     };
 
 //变量Reducer
@@ -80,15 +104,19 @@ export function reducer(state = initialAuthState, action)
         //     return Object.assign({}, state, {
         //         dataSource: action.dataSource
         //     });
+        // case 'AVATAR':
+        //     return Object.assign({}, state, {
+        //         avatar: action.avatar
+        //     });
+        //
+        // case 'USER_NAME':
+        //     return Object.assign({}, state, {
+        //         userName: action.userName
+        //     });
 
-        case 'AVATAR':
+        case 'USER':
             return Object.assign({}, state, {
-                avatar: action.avatar
-            });
-
-        case 'USER_NAME':
-            return Object.assign({}, state, {
-                userName: action.userName
+                user: action.user?action.user:user
             });
 
         case 'MONEY':

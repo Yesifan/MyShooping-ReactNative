@@ -14,10 +14,15 @@ import Mine from "./Component/Mine/Mine";
 
 import food from './Component/Home/Son/food';
 import aboutMe from './Component/More/Son/AboutMe';
+import Login from "./Component/Mine/Son/Login";
 
-import {comStyles} from './js/css.js'
+import {comStyles} from './js/css.js';
+import './js/storage';
 
-console.ignoredYellowBox = ['Warning: Each child in an array or iterator should have a unique "key" prop.','Remote debugger is in a background tab which may cause apps to perform slowly.'];
+//警告屏蔽
+console.ignoredYellowBox = ['Warning: Each child in an array or iterator should have a unique "key" prop.','Remote debugger is in a background tab which may cause apps to perform slowly.','Remote debugger is in a background tab which may cause apps to perform slowly','Debugger and device times have drifted by more than 60s. Please correct this by running'];
+
+
 
 const StackHome = StackNavigator(
     {
@@ -39,9 +44,11 @@ const StackShop = StackNavigator(
     }
 );
 
+
 const StackMine= StackNavigator(
     {
         Mine: { screen: Mine},
+
     },
 
     {
@@ -112,9 +119,9 @@ const Main = TabNavigator({
                 focused ?
                     <View>
                         {/*小红点*/}
-                        <View style={[comStyles.dot, {top: 1, right: 1}]}>
-                            <Text style={{color: '#fff', fontSize: 7}}>14</Text>
-                        </View>
+                        {/*<View style={[comStyles.dot, {top: 1, right: 1}]}>*/}
+                            {/*<Text style={{color: '#fff', fontSize: 7}}>14</Text>*/}
+                        {/*</View>*/}
 
                         <Image
                             source={{uri: 'icon_tabbar_mine_selected'}}
@@ -122,10 +129,11 @@ const Main = TabNavigator({
                         />
                     </View> :
                     <View>
+
                         {/*小红点*/}
-                        <View style={[comStyles.dot, {top: 1, right: 1}]}>
-                            <Text style={{color: '#fff', fontSize: 7}}></Text>
-                        </View>
+                        {/*<View style={[comStyles.dot, {top: 1, right: 1}]}>*/}
+                            {/*<Text style={{color: '#fff', fontSize: 7}}></Text>*/}
+                        {/*</View>*/}
 
                         <Image
                             source={{uri: 'icon_tabbar_mine'}}
@@ -187,6 +195,7 @@ export const StackRoot = StackNavigator(
     {
         Main: { screen: Main },
         Food: { screen: food },
+        Login: { screen: Login},
     },
     {
         headerMode: 'none',

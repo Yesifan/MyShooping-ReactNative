@@ -7,9 +7,6 @@ import React, {Component} from 'react'
 import Button from '../Component/Button'
 import List from "../Component/List";
 
-
-
-
 class ShopManage extends Component{
     constructor(props)
     {
@@ -27,11 +24,11 @@ class ShopManage extends Component{
     componentWillMount()
     {
 
-
         this.handleGetShop();
 
     }
 
+    //通过fetch获得商家列表
     handleGetShop()
     {
 
@@ -46,15 +43,14 @@ class ShopManage extends Component{
             .then((resJson)=>
             {
                 this.setState({shop:resJson});
+                resJson.map((value)=>console.log(value));
             })
             .catch((error) => {console.error(error);});
     }
 
-    handleItems(value)
-    {
-        return [value.name,value.type,'1533484 次/天']
-    }
 
+
+    //读取input中图片实例的钩子
     handleChange(e)
     {
 
@@ -73,6 +69,7 @@ class ShopManage extends Component{
         this.setState({files: files[0]});
     }
 
+    //上传商家信息的函数
     handleUpload()
     {
         let form = new FormData();
@@ -96,8 +93,6 @@ class ShopManage extends Component{
                 location.reload(true);
 
             });
-
-
 
     }
 
@@ -290,7 +285,10 @@ class ShopManage extends Component{
 
                     <List TITLE={TITLE} listdata={this.state.shop}/>
 
-                    {this.state.visible?
+
+                    {
+                        //新商家入驻弹出框
+                        this.state.visible?
                         <div style={styles.dialog} >
                             <span style={styles.dialogHeader}>
                                 新商家入驻

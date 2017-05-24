@@ -40,7 +40,7 @@ function select(sql) {
 }
 
 
-//登陆验证
+//admin登陆验证
 router.post('/login', function(req, res, next) {
     let _user = req.body.user;
     let name = _user.name;
@@ -57,6 +57,30 @@ router.post('/login', function(req, res, next) {
 
             res.json({
                 id:data.rows[0].id,
+                state:true,
+                token:Date.now()
+            })
+        })
+        .catch(function(err){
+            res.json({state:false});
+            console.log('err',err)
+        })
+
+});
+
+router.post('/userlogin', function(req, res, next) {
+    let _user = req.body.user;
+    let name = _user.name;
+    let password = _user.password;
+
+    select('SELECT id,nickname FROM user WHERE username="'+name+'" and password="'+password+'";')
+        .then(function (data) {
+            //验证成功
+
+            //console.log(data.rows[0]);
+            res.json({
+                id:data.rows[0].id,
+                nickname:data.rows[0].nickname,
                 state:true,
                 token:Date.now()
             })
@@ -87,20 +111,8 @@ router.get('/readshop', function(req, res, next) {
 
 });
 
-//
-router.post('/addshop', function(req, res, next) {
 
-    let shop = req.body;
-    let name = shop.name;
-    let type = shop.type;
-    let icon = shop.icon;
-
-
-
-
-});
-
-
+//注册新商家信息录入数据库
 router.post('/upload', function(req, res, next) {
     // 生成multiparty对象，并配置上传目标路径
     var form = new multiparty.Form();

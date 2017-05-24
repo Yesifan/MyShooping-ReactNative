@@ -15,10 +15,10 @@ const rootReducer = combineReducers(
 
 //中间件
 const logger = store => next => action => {
-    // if(action.type==='_SELECT')
-    // {
-    //     return next(action);
-    // }
+    if(action.type==='_SELECT')
+    {
+        return next(action);
+    }
     console.log('dispatching', action);
     let result = next(action);
     console.log('next state', store.getState());

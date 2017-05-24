@@ -28,19 +28,26 @@ export function swiper(data) {
 //         dataSource:data,
 //     }
 // );
+//
+// export const avatar = (data)=>(
+//     {
+//         type:'AVATAR',
+//         avatar:data,
+//
+//     }
+// );
+//
+// export const userName = (data)=>(
+//     {
+//         type:'USER_NAME',
+//         userName:data,
+//     }
+// );
 
-export const avatar = (data)=>(
+export const loginUser = (data)=>(
     {
-        type:'AVATAR',
-        avatar:data,
-
-    }
-);
-
-export const userName = (data)=>(
-    {
-        type:'USER_NAME',
-        userName:data,
+        type:'USER',
+        user:data,
     }
 );
 
