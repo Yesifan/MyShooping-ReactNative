@@ -130,7 +130,7 @@ class Mine extends Component {
                         <ScrollView>
 
                             <View style={{marginTop:1}}>
-                                <IconCell title = '我的订单' icon="xckc" button={()=>{alert("xxx")}} extends={<Text>查看全部订单</Text>}/>
+                                <IconCell title = '我的订单' icon="xckc" button={()=>navigation.navigate('Order',{user_ID:this.props.userid})} extends={<Text>查看全部订单</Text>}/>
 
                                 <View style={[styles.sonBar,{backgroundColor:'#fff',marginTop:3}]}>
 

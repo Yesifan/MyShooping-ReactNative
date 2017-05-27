@@ -8,11 +8,7 @@ import Button from "./Button";
 class Item extends Component{
 
 
-
-
-
     render() {
-
 
         const styles = {
             item:{
@@ -23,6 +19,8 @@ class Item extends Component{
                 alignItems:'center',
                 flexDirection:'row',
 
+                paddingLeft:this.props.isImage?0:40,
+                paddingRight:this.props.isButton?0:124,
 
             },
 
@@ -40,7 +38,6 @@ class Item extends Component{
                 marginBottom:5,
 
                 paddingLeft:40,
-
                 paddingRight:124,
 
             },
@@ -79,22 +76,21 @@ class Item extends Component{
 
         };
 
-
         let renderItems = (items)=> items.map(
             (item,index)=> <span  key={index} style={this.props.isTitle?styles.titleItems:styles.items}>{item}</span> );
 
         return (
             <span>
                 <span style={this.props.isTitle?styles.titleItem:styles.item}>
-                    {this.props.isTitle? null : <img style={styles.image} src={this.props.icon?'../../images/' + this.props.icon + '.png':require('../../public/images/icon_shop.png')} />}
+
+                    {this.props.isImage? <img style={styles.image} src={this.props.icon?'../../images/' + this.props.icon + '.png':require('../../public/images/icon_shop.png')} /> :null }
 
                     {renderItems(this.props.items)}
 
-                    {this.props.isTitle? null :
-                        <span style={styles.buttonBox}>
+                    {this.props.isButton? <span style={styles.buttonBox}>
                             <Button font="更改" color="#9932CC" click={this.props.change}/>
                             <Button font="删除" color="#FF4040" click={this.props.delete}/>
-                        </span>}
+                        </span> :null}
 
                 </span>
 

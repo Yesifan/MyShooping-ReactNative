@@ -10,6 +10,9 @@ import {
     Image,
     ScrollView
 } from 'react-native';
+
+
+
 import {comStyles} from '../../js/css.js'
 import HeaderBar from '../../js/Part/HeaderBar'
 import ShopItem from './Son/com/ShopItem'
@@ -26,6 +29,7 @@ export default class Shop extends Component {
 
     componentWillMount()
     {
+
         this.handleGetShop();
     }
 
@@ -51,8 +55,8 @@ export default class Shop extends Component {
 
 
     render() {
-        let renderItem = this.state.shop.map((value)=>
-            <ShopItem name={value.name} type={value.type} icon={value.icon}/>);
+        let renderItem = this.state.shop.map((value,index)=>
+            <ShopItem id={value.id} name={value.name} type={value.type} icon={value.icon}/>);
 
 
         return (
@@ -66,6 +70,7 @@ export default class Shop extends Component {
                     <ScrollView>
 
                     {renderItem}
+
                     </ScrollView>
 
                 </View>

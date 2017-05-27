@@ -278,12 +278,11 @@ class ShopManage extends Component{
 
                         <Button font="增加" color="#225592" click={()=>this.setState({visible:true})}/>
 
-
                     </div>
 
                     <hr style={{width:'92%',borderWidth:1.2,borderColor:'#225592',borderStyle:'solid',}}/>
 
-                    <List TITLE={TITLE} listdata={this.state.shop}/>
+                    <List TITLE={TITLE} listdata={this.state.shop} handleItems={(value)=>[value.name,value.type,'100000 次/天']} isImage={true} isButton={true}/>
 
 
                     {

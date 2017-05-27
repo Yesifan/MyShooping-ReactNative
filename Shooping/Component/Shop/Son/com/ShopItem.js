@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
+import {getStore} from '../../../../Redux/Store/configStore'
 
 
 const Dimensions = require('Dimensions');
@@ -36,9 +37,35 @@ export default class ShopItem extends Component {
 
     };
 
+    handleUpOrder(shopname)
+    {
+        fetch('http://192.168.111.2:3000/server/buy',
+            {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify({
+                    shopname:shopname,
+                    customer:getStore().getState().reducer.user.nickname,
+                }),})
+            .then(()=>{
+                console.log('SUCCESS');})
+            .catch((err)=>console.log(err))
+
+    }
+
+    buttonHandle(shop)
+    {
+        alert('欢迎来到'+shop.name);
+        //console.log();
+        this.handleUpOrder(shop.name)
+    }
+
     render() {
         return (
-            <TouchableOpacity onPress={this.props.button}>
+            <TouchableOpacity onPress={()=>this.buttonHandle(this.props)}>
 
                 <View style={styles.cell}>
 

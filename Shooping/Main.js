@@ -18,6 +18,7 @@ import Login from "./Component/Mine/Son/Login";
 
 import {comStyles} from './js/css.js';
 import './js/storage';
+import Order from "./Component/Mine/Son/Order";
 
 //警告屏蔽
 console.ignoredYellowBox = ['Warning: Each child in an array or iterator should have a unique "key" prop.','Remote debugger is in a background tab which may cause apps to perform slowly.','Remote debugger is in a background tab which may cause apps to perform slowly','Debugger and device times have drifted by more than 60s. Please correct this by running'];
@@ -48,7 +49,7 @@ const StackShop = StackNavigator(
 const StackMine= StackNavigator(
     {
         Mine: { screen: Mine},
-
+        Order:{ screen: Order},
     },
 
     {

@@ -55,6 +55,9 @@ class List extends Component{
 
     render() {
 
+        //this.props.handleItems 数据提取函数
+
+
         const styles = {
 
             table:{
@@ -66,18 +69,14 @@ class List extends Component{
 
         };
 
-        const {listdata} = this.props; //原始数据
-
-        //let indexList = listdata.slice(0,5); //当前页面数据
-
         const {TITLE} = this.props;
 
-
+        //items：读取一个数组
         let renderItem = (listData) => listData.map((shop,index)=>
-            <Item items={this.handleItems(shop)} icon={shop.icon} key={index} change={()=>this.handleButton(shop.name)}/>);
+            <Item items={this.props.handleItems(shop)} icon={shop.icon} key={index} change={()=>this.handleButton(shop.name)}
+                  isTitle={this.props.isTitle} isImage={this.props.isImage} isButton={this.props.isButton}/>);
 
         return (
-
                 <div style={styles.table}>
                     <div style={{flex:1}}>
                     <Item items={TITLE} isTitle = {true}/>
@@ -86,15 +85,10 @@ class List extends Component{
                     {renderItem(this.state.indexList)}
                     </div>
 
-
                     <PageButton index={this.state.page} page={this.state.current}
                                 click={(index)=>this.setState({current:index,indexList:this.props.listdata.slice((index-1)*this.state.pageSize,index*this.state.pageSize)})}/>
 
                 </div>
-
-
-
-
         );
     }
 }

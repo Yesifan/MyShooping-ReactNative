@@ -68,6 +68,7 @@ router.post('/login', function(req, res, next) {
 
 });
 
+//user登陆验证
 router.post('/userlogin', function(req, res, next) {
     let _user = req.body.user;
     let name = _user.name;
@@ -111,6 +112,34 @@ router.get('/readshop', function(req, res, next) {
 
 });
 
+//订单读取应该加权限验证
+router.post('/readorder', function(req, res, next) {
+
+    let user_ID = req.body.user_ID;
+
+    console.log(req.body);
+
+    let sql = user_ID? `select myorder.shopname,myorder.time 
+            from myorder join user 
+            on myorder.customer=user.nickname
+            where user.id = ${user_ID};` :
+        `select myorder.shopname,myorder.time,myorder.customer 
+            from myorder join user 
+            on myorder.customer=user.nickname;`;
+
+    select(sql)
+        .then(function (data) {
+            //验证成功
+            //console.log(new Date(data.rows[0].time));
+
+            res.send(data.rows);
+        })
+        .catch(function(err){
+            res.json({state:false});
+            console.log('err',err)
+        })
+
+});
 
 //注册新商家信息录入数据库
 router.post('/upload', function(req, res, next) {
@@ -151,9 +180,9 @@ router.post('/upload', function(req, res, next) {
                     reject(err)
                 } else {
                     select('INSERT INTO shop (name,type,icon) values ("'+shopName+'","'+shopType+'","'+iconname+'");')
-                        .then(function (data) {
+                        .then(function () {
                             //验证成功
-                            res.send(data.rows);
+                            //res.send(data.rows);
                             res.json({
                                 state:true,
                             })
@@ -168,9 +197,9 @@ router.post('/upload', function(req, res, next) {
         }
         catch (e) {
             select('INSERT INTO shop (name,type) values ("'+shopName+'","'+shopType+'");')
-                .then(function (data) {
+                .then(function () {
                     //验证成功
-                    res.send(data.rows);
+                    // res.send(data.rows);
                     res.json({
                         state:true,
                     })
@@ -189,5 +218,26 @@ router.post('/upload', function(req, res, next) {
 
 });
 
+//订单信息
+router.post('/buy', function(req, res, next) {
+
+
+    var shopName = req.body.shopname;
+    var customer = req.body.customer;
+    var time = new Date().toLocaleString();
+
+    select('INSERT INTO myorder (shopname,customer,time) values ("'+shopName+'","'+customer+'","'+time+'");')
+        .then(function () {
+
+            res.json({
+                state:true,
+            })
+        })
+        .catch(function(err){
+            res.json({state:false});
+            console.log('err',err)
+        });
+
+});
 
 module.exports = router;

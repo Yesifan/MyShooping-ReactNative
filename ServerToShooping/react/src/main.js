@@ -5,17 +5,17 @@ import React, {Component} from 'react'
 import {
     BrowserRouter as Router,
     Route,
-    Link
 } from 'react-router-dom'
 import {render} from 'react-dom';
-import Greeter from './Component/Greeter';
 import Header from './Component/Header';
 import Cell from './Component/Cell';
 
 import ShopManage from './Page/ShopManage';
+import OrderManage from './Page/OrderManage';
 
-
-import styles from '../public/stylesheets/main.css';//使用require导入css文件
+import styles from '../public/stylesheets/main.css';
+import AdManage from "./Page/AdManage";
+//使用require导入css文件
 
 class Main extends Component{
 
@@ -62,13 +62,14 @@ class Main extends Component{
 
 
 
+
                         </div>
 
                         <div style={{flex:8,backgroundColor:'blue'}}>
 
                             <Route exact path="/index" component={ShopManage} />
-                            <Route path="/index/order" component={Greeter} />
-                            <Route path="/index/ad" component={About} />
+                            <Route path="/index/order" component={OrderManage} />
+                            <Route path="/index/ad" component={AdManage} />
 
                         </div>
 
@@ -79,10 +80,5 @@ class Main extends Component{
     }
 }
 
-const About = () => (
-    <div>
-        <h2 style={{margin:0}}>About</h2>
-    </div>
-);
 
 render(<Main />, document.getElementById('root'));
