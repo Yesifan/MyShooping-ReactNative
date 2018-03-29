@@ -2,15 +2,17 @@
  * Created by y5049 on 2017/4/30.
  */
 
-import React, { PropTypes }from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { View,Image,Text } from 'react-native';
-import { TabNavigator,StackNavigator,addNavigationHelpers } from 'react-navigation';
+import { TabNavigator,StackNavigator,addNavigationHelpers,TabBarBottom } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import Home from './Component/Home/Home';
 import Shop from "./Component/Shop/Shop";
 import More from "./Component/More/More";
 import Mine from "./Component/Mine/Mine";
+import Group from "./Component/Other/Group";
 
 import food from './Component/Home/Son/food';
 import aboutMe from './Component/More/Son/AboutMe';
@@ -87,7 +89,8 @@ const Main = TabNavigator({
                             style={[comStyles.icon]}
                         />
             ),
-        }},
+        }
+        },
 
     SShop: { screen: StackShop,
         navigationOptions: {
@@ -104,10 +107,11 @@ const Main = TabNavigator({
                         style={[comStyles.icon]}
                     />
             ),
-        } },
+        }
+        },
 
     SMine: { screen: StackMine,
-        navigationOptions: ()=>{
+        navigationOptions: ({ navigation })=>{
 
         //const { state } = navigation;
 
@@ -130,12 +134,10 @@ const Main = TabNavigator({
                         />
                     </View> :
                     <View>
-
                         {/*小红点*/}
                         {/*<View style={[comStyles.dot, {top: 1, right: 1}]}>*/}
                             {/*<Text style={{color: '#fff', fontSize: 7}}></Text>*/}
                         {/*</View>*/}
-
                         <Image
                             source={{uri: 'icon_tabbar_mine'}}
                             style={[comStyles.icon]}
@@ -163,7 +165,8 @@ const Main = TabNavigator({
             ),
 
 
-        } },
+        }
+        },
 },
 
 {
@@ -184,9 +187,10 @@ const Main = TabNavigator({
 
         },
     },
+    tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom', // 显示在底端，android 默认是显示在页面顶端的
-    animationEnabled: false, // 切换页面时不显示动画
-    swipeEnabled:false, //无法在两个便签间滑动
+    animationEnabled: true, // 切换页面时显示动画
+    swipeEnabled:true, //在两个便签间滑动
 }
 
 );
@@ -197,25 +201,27 @@ export const StackRoot = StackNavigator(
         Main: { screen: Main },
         Food: { screen: food },
         Login: { screen: Login},
+        Group:{screen:Group}
     },
     {
         headerMode: 'none',
     }
 );
 
-
-const AppWithNavigationState = ({ dispatch, nav }) => (
-    <StackRoot navigation={addNavigationHelpers({ dispatch, state: nav })} />
-);
-
-AppWithNavigationState.propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    nav: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = state => ({
-    nav: state.nav,
-});
-
-
-export default connect(mapStateToProps)(AppWithNavigationState);
+//
+//
+// const AppWithNavigationState = ({ dispatch, nav }) => (
+//     <StackRoot navigation={addNavigationHelpers({ dispatch, state: nav })} />
+// );
+//
+// AppWithNavigationState.propTypes = {
+//     dispatch: PropTypes.func.isRequired,
+//     nav: PropTypes.object.isRequired,
+// };
+//
+// const mapStateToProps = state => ({
+//     nav: state.nav,
+// });
+//
+//
+// connect(mapStateToProps)(AppWithNavigationState);

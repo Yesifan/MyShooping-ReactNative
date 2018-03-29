@@ -18,10 +18,6 @@ import HeaderBar from '../../../js/Part/HeaderBar.js'
 
 export default class food extends Component {
 
-    static navigationOptions = {
-        title: 'Food',    //设置navigator的title
-    };
-
 
     componentDidMount(){
 

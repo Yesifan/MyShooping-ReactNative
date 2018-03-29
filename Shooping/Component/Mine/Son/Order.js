@@ -2,6 +2,7 @@
  * Created by y5049 on 2017/5/26.
  */
 import React, { Component } from 'react';
+import config from '../../../js/config';
 import {
     Text,
     View,
@@ -37,8 +38,7 @@ export default class Order extends Component {
 
     handleGetOrder(id)
     {
-
-        fetch('http://192.168.111.2:3000/server/readorder',{
+        fetch(config.domain+'/server/readorder',{
 
             method: 'POST',
             headers: {

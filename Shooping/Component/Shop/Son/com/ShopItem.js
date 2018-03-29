@@ -3,6 +3,7 @@
  */
 
 import React, { Component, PropTypes  } from 'react';
+import config from '../../../../js/config';
 import {
     StyleSheet,
     Text,
@@ -39,7 +40,7 @@ export default class ShopItem extends Component {
 
     handleUpOrder(shopname)
     {
-        fetch('http://192.168.111.2:3000/server/buy',
+        fetch(config.domain+'/server/buy',
             {
                 method: "POST",
                 headers: {
@@ -58,9 +59,9 @@ export default class ShopItem extends Component {
 
     buttonHandle(shop)
     {
-        alert('欢迎来到'+shop.name);
         //console.log();
-        this.handleUpOrder(shop.name)
+        this.handleUpOrder(shop.name);
+        shop.callback();
     }
 
     render() {
@@ -71,7 +72,7 @@ export default class ShopItem extends Component {
 
                     <View style={styles.leftCell}>
                         <Image
-                            source={{uri:`http://192.168.111.2:3000/images/${this.props.icon?this.props.icon:'icon_shop'}.png`}}
+                            source={{uri:`${config.domain}/images/${this.props.icon?this.props.icon:'icon_shop'}.png`}}
                             style={{width:50,height:50}}
                         />
 

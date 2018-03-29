@@ -32,7 +32,7 @@ class ShopManage extends Component{
     handleGetShop()
     {
 
-        fetch('http://192.168.111.2:3000/server/readshop',{
+        fetch('/server/readshop',{
 
             method: 'GET',
             headers: {

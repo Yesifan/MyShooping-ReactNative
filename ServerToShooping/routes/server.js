@@ -78,7 +78,7 @@ router.post('/userlogin', function(req, res, next) {
         .then(function (data) {
             //验证成功
 
-            //console.log(data.rows[0]);
+            console.log(data.rows[0]);
             res.json({
                 id:data.rows[0].id,
                 nickname:data.rows[0].nickname,

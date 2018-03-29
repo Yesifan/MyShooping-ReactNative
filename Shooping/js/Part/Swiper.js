@@ -124,9 +124,7 @@ export default class Swiper extends Component{
 
                     onTouchStart = {this.props.autoPlay? ()=>this._onTouchStart() : null}
                     onTouchEnd = {this.props.autoPlay? ()=>this._onTouchEnd() : null}
-
                     onScrollEndDrag={(e)=>this._onScrollEndDrag(e)}
-
                     ref={(scrollView) => { this._scrollView = scrollView;}} >
 
                     <View style={{flexDirection:'row'}}>
@@ -199,8 +197,6 @@ export default class Swiper extends Component{
             return;
         }
 
-
-
         //莫名其妙的定时函数
         this._timer = setInterval(()=>{
                 this._index++;
@@ -208,11 +204,6 @@ export default class Swiper extends Component{
                 if(this._index >= this.length){
                     this._index = 0;
                 }
-
-
-                // console.log(this.length);
-                //
-                // console.log(this._index);
 
                 //dispatch
                 this.props.dispatch(swiper({type:this.props.Code,index:this._index+1}));
@@ -224,7 +215,6 @@ export default class Swiper extends Component{
     // 组件装载完成
     componentDidMount(){
         //console.log(this.props.view);
-
         this._runFocusImage();
     }
 

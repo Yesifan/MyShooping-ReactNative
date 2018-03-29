@@ -2,6 +2,7 @@
  * Created by y5049 on 2017/5/23.
  */
 import React, { Component } from 'react';
+import config from '../../../js/config';
 import {
     Text,
     View,
@@ -41,7 +42,7 @@ class Login extends Component {
 
     handleLogin(user,password)
     {
-        fetch('http://192.168.111.2:3000/server/userlogin',
+        fetch(config.domain+'/server/userlogin',
             {
                 //允许接收cookie
                 credentials: 'include',

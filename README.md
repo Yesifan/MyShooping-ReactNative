@@ -1,5 +1,17 @@
 ## MyShooping-ReactNative 仿美团的ReactNative项目
 
+## 依赖安装
+
+需要安装node等react-native必须依赖的工具。详情见[https://reactnative.cn/docs/0.51/getting-started.html](https://reactnative.cn/docs/0.51/getting-started.html)
+
+运行项目还必须要用到mysql
+
+安装完上述依赖之后 到 ServerToShooping/routes/server.js 中修改mysql用户配置
+
+然后在两个子项目中分别运行 npm i 或 yarn 
+
+即可通过 react-native run-android||run-ios,npm start 来分别运行客户端和服务端
+
 ### 1.服务器端
 
 服务器端由webpack+react+express完成

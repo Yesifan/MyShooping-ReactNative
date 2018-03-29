@@ -4,11 +4,11 @@
 
 import {createStore,combineReducers,applyMiddleware} from 'redux';
 
-import {nav,reducer} from '../Reducer/index';
+import {reducer} from '../Reducer/index';
 
 const rootReducer = combineReducers(
     {
-        nav,
+        // nav,
         reducer,
     }
 );

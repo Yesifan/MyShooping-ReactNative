@@ -44,7 +44,7 @@ export default class More extends Component {
                         </View>
 
                         <View style={{marginTop:15}}>
-                            <CommonCell title = "关于我们" button={()=>navigation.dispatch(Go({routeName:'AboutMe'}))}/>
+                            <CommonCell title = "关于我们" button={()=>navigation.navigate('AboutMe')}/>
                             <CommonCell title = "问题反馈" />
                             <CommonCell title = "联系我们" />
                         </View>

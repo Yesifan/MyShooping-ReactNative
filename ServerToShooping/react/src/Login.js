@@ -15,7 +15,7 @@ const fakeAuth = {
     },
 
     fetchLogin(user,password,go,warning) {
-        fetch('http://192.168.111.2:3000/server/login',
+        fetch('/server/login',
             {
                 //允许接收cookie
                 credentials: 'include',

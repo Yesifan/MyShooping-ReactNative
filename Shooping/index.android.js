@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React from 'react';
+import React,{Component} from 'react';
 import {
   AppRegistry,
 } from 'react-native';
@@ -12,7 +12,7 @@ import { Provider } from 'react-redux';
 import {getStore} from './Redux/Store/configStore'
 
 
-import Main from "./Main";
+import {StackRoot} from "./Main";
 
 class Shooping extends React.Component {
     store = getStore();
@@ -20,10 +20,11 @@ class Shooping extends React.Component {
     render() {
         return (
             <Provider store={this.store}>
-              <Main />
+              <StackRoot />
             </Provider>
         );
     }
 }
+
 
 AppRegistry.registerComponent('Shooping', () => Shooping);

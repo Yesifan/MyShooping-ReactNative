@@ -38,11 +38,6 @@ export default class TopListView extends Component {
         };
     };
 
-    static defaultProps = {
-        dataArr: [],
-
-    };
-
     render() {
         return (<ListView
                 dataSource={this.state.dataSource}

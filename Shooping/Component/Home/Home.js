@@ -29,10 +29,7 @@ import RImage from '../../Data/RecommendImage.json'
 
 export default class Home extends Component {
 
-    static navigationOptions = {
-        title: 'Welcome',
 
-    };
 
     constructor(props)
     {
@@ -78,7 +75,7 @@ export default class Home extends Component {
         for(let i=0; i<dataArr.length; i++){
 
             itemArr.push(
-                <TouchableOpacity onPress={advButton[i]}>
+                <TouchableOpacity onPress={()=>this.props.navigation.navigate('Group',{title:dataArr[i].title})}>
                     <View style={styles.advView}>
                         <Image source={{uri:dataArr[i].image}} style={{width:80,height:80}}/>
 
@@ -97,7 +94,7 @@ export default class Home extends Component {
         //ShowBar的点击事件
         const ShowButton = {
             LButton:null,
-            RTButton:()=>navigation.dispatch(Go({routeName:'Food',params:{shop:'chickenShop',food:'Chicken'}})),
+            RTButton:()=>navigation.navigate('Food',{shop:'chickenShop',food:'Chicken'}),
             RBButton:null
         };
 

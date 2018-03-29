@@ -9,41 +9,37 @@ import { StackRoot } from '../../Main';
 import {loginUser} from '../action/action'
 
 // Start with two routes: The Main screen, with the Login screen on top.
-const firstAction = StackRoot.router.getActionForPathAndParams('Main');
+// const firstAction = StackRoot.router.getActionForPathAndParams('Main');
+//
+// const tempNavState = StackRoot.router.getStateForAction(firstAction);
+//
+// // const secondAction = StackRoot.router.getActionForPathAndParams('Food');
+//
+// const initialNavState = StackRoot.router.getStateForAction(tempNavState);
 
-const tempNavState = StackRoot.router.getStateForAction(firstAction);
-
-const secondAction = StackRoot.router.getActionForPathAndParams('Food');
-
-const initialNavState = StackRoot.router.getStateForAction(tempNavState);
-
-// console.log('firstAction',firstAction);
-// console.log('2',tempNavState);
-// console.log('3',secondAction);
-// console.log('4',initialNavState);
 
 //跳转Reducer
-export function nav(state = initialNavState, action) {
-    let nextState;
-    switch (action.type) {
-        case 'Login':
-            nextState = StackRoot.router.getStateForAction(NavigationActions.back(), state);
-            break;
-
-        case 'Navigation/NAVIGATE':
-            nextState = StackRoot.router.getStateForAction(NavigationActions.navigate({ routeName: action.routeName,params:action.params,action:action.action }), state);
-            break;
-
-        // case 'Food':
-        //     nextState = StackRoot.router.getStateForAction(NavigationActions.navigate({ routeName: 'Food' }), state);
-        //     break;
-        default:
-            nextState = StackRoot.router.getStateForAction(action, state);
-            break;
-    }
-    // Simply return the original `state` if `nextState` is null or undefined.
-    return nextState || state;
-}
+// export function nav(state = initialNavState, action) {
+//     let nextState;
+//     switch (action.type) {
+//         case 'Login':
+//             nextState = StackRoot.router.getStateForAction(NavigationActions.back(), state);
+//             break;
+//
+//         case 'Navigation/NAVIGATE':
+//             nextState = StackRoot.router.getStateForAction(NavigationActions.navigate({ routeName: action.routeName,params:action.params,action:action.action }), state);
+//             break;
+//
+//         // case 'Food':
+//         //     nextState = StackRoot.router.getStateForAction(NavigationActions.navigate({ routeName: 'Food' }), state);
+//         //     break;
+//         default:
+//             nextState = StackRoot.router.getStateForAction(action, state);
+//             break;
+//     }
+//     // Simply return the original `state` if `nextState` is null or undefined.
+//     return nextState || state;
+// }
 
 
 //查看有无已登陆用户
